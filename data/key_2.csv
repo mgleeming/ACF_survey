@@ -1,298 +1,300 @@
-redcap	category	group	field	presentation_type
-host	Overview	host	host	histogram
-host_other	Overview	host	host_other	text
-facility_type	Overview	facility	facility	histogram
-facitity_type_other	Overview	facility	facility_other	text
-position	Overview	position	position	histogram
-accreditation	Overview	accreditation	accreditation	histogram
-support___1	Overview	institutional support	institutional support	heatmap
-support___2	Overview	institutional support	institutional support	heatmap
-support___3	Overview	institutional support	institutional support	heatmap
-support___4	Overview	institutional support	institutional support	heatmap
-support___5	Overview	institutional support	institutional support	heatmap
-support___6	Overview	institutional support	institutional support	heatmap
-support___7	Overview	institutional support	institutional support	heatmap
-support___8	Overview	institutional support	institutional support	heatmap
-host_other_2	Overview	institutional support	institutional support other	text
-staff_cost	Staffing			
-staff_cost_currency	Staffing			
-staff_other_dollars	Staffing			
-ac_female_fte_con	Staffing			
-ac_female_fte_ft	Staffing			
-ac_female_fte_cas	Staffing			
-ac_female_fte_cal	Staffing	Female Academic Staff FTE	Female Academic Staff FTE	scatter
-ac_male_fte_con	Staffing			
-ac_male_fte_ft	Staffing			
-ac_male_fte_cas	Staffing			
-academic_male_fte	Staffing	Male Academic Staff FTE	Male Academic Staff FTE	scatter
-ac_other_fte_con	Staffing			
-ac_other_fte_ft	Staffing			
-ac_other_fte_cas	Staffing			
-ac_other_fte_cal	Staffing			
-pro_female_fte_con	Staffing			
-pro_female_fte_ft	Staffing			
-pro_female_fte_cas	Staffing			
-pro_female_fte_cal	Staffing			
-pro_male_fte_con	Staffing			
-pro_male_fte_ft	Staffing			
-pro_male_fte_cas	Staffing			
-pro_male_fte	Staffing			
-pro_other_fte_con	Staffing			
-pro_other_fte_ft	Staffing			
-pro_other_fte_cas	Staffing			
-pro_other_fte_cal	Staffing			
-ad_female_fte_con	Staffing			
-ad_female_fte_ft	Staffing			
-ad_female_fte_cas	Staffing			
-ad_female_fte_cal	Staffing			
-ad_male_fte_con	Staffing			
-ad_male_fte_ft	Staffing			
-ad_male_fte_cas	Staffing			
-ad_male_fte	Staffing			
-ad_other_fte_con	Staffing			
-ad_other_fte_ft	Staffing			
-ad_other_fte_cas	Staffing			
-ad_other_fte_cal	Staffing			
-staff_total_fte_cal	Staffing	Staff Total FTE	Staff Total FTE	scatter
-no_ms_q_ot_it	Instrumentation			
-no_ms_q_ot_it_ionmob	Instrumentation			
-no_ms_q_ot	Instrumentation			
-no_ms_q_ot_ionmob	Instrumentation			
-no_ms_qtof	Instrumentation			
-no_ms_qtof_ionmob	Instrumentation			
-no_ms_qqq	Instrumentation			
-no_ms_qqq_ionmob	Instrumentation			
-no_ms_tof_tof	Instrumentation			
-no_ms_tof_tof_ionmob	Instrumentation			
-no_ms_ft_icr	Instrumentation			
-no_ms_ft_icr_ionmob	Instrumentation			
-no_ms_it	Instrumentation			
-no_ms_it_ionmob	Instrumentation			
-no_ms_s_q	Instrumentation			
-no_ms_s_q_ionmob	Instrumentation			
-no_ms_other	Instrumentation			
-no_ms_other_ionmob	Instrumentation			
-no_ms_total	Instrumentation			
-no_ms_q_ot_it_new19	Instrumentation			
-no_ms_q_ot_new19	Instrumentation			
-no_ms_qtof_new19	Instrumentation			
-no_ms_qqq_new19	Instrumentation			
-no_ms_tof_tof_new19	Instrumentation			
-no_ms_ft_icr_new19	Instrumentation			
-no_ms_it_new19	Instrumentation			
-no_ms_s_q_new19	Instrumentation			
-no_ms_other_new19	Instrumentation			
-no_ms_q_ot_it_new19_fund				
-no_ms_q_o_new19_fund				
-no_ms_qtof_new19_fund				
-no_ms_qqq_qtrap_new19_fund				
-no_ms_tof_tof_new19_fund				
-no_ms_ft_icr_new19_fund				
-no_ms_it_new19_fund				
-no_ms_s_q_new19_fund				
-no_ms_other_new19_fund				
-ms_other_type				
-ms_fund_source_other_info				
-ms_fund_source_host				
-ms_fund_source_phil				
-ms_fund_source_state				
-ms_fund_source_fed				
-ms_fund_source_riip				
-ms_fund_source_charity				
-ms_fund_source_self				
-ms_fund_source_other				
-ms_fund_source_total				
-maintenance_cost	Maintenance			
-maintenance_cost_currency	Maintenance			
-maintenance_other_dollars	Maintenance			
-maintenance_warranty	Maintenance			
-maintenance_ful	Maintenance			
-maintenance_prev	Maintenance			
-maintenance_none	Maintenance			
-maintenance_other	Maintenance			
-ms_decom	Instrumentation			
-ms_decom_model	Instrumentation			
-soft_hdi	Software			
-soft_scils	Software			
-soft_byonic	Software			
-soft_dia_nn	Software			
-soft_ency	Software			
-soft_mascot	Software			
-soft_md	Software			
-soft_mh	Software			
-soft_mq	Software			
-soft_metamorph	Software			
-soft_msfragger	Software			
-soft_openms	Software			
-soft_peaks	Software			
-soft_swath	Software			
-soft_pqip	Software			
-soft_pd	Software			
-soft_pp	Software			
-soft_scaf	Software			
-soft_spec	Software			
-soft_swathx	Software			
-soft_tpp	Software			
-soft_analyst	Software			
-soft_cd	Software			
-soft_chemstation	Software			
-soft_ls	Software			
-soft_lv	Software			
-soft_pqi	Software			
-soft_mlynx	Software			
-soft_msdial	Software			
-soft_metab_express	Software			
-soft_freestyle	Software			
-soft_gcimage	Software			
-soft_insight	Software			
-soft_multiq	Software			
-soft_qual	Software			
-soft_skyline	Software			
-soft_sciexos	Software			
-soft_targetlynx	Software			
-soft_tf	Software			
-soft_other	Software			
-pricing_subscription	Pricing			
-pricing_fee4service_per_sample	Pricing			
-pricing_fee4service_per_hr	Pricing			
-pricing_self_per_sample	Pricing			
-pricing_self_per_hour	Pricing			
-pricing_other	Pricing			
-ms_fund_source_total_2	Pricing			
-rates___1	Pricing			
-rates___2	Pricing			
-rates___3	Pricing			
-rates___4	Pricing			
-rates_other	Pricing			
-rates_ac_int_to_ac_ex	Pricing			
-rates_ac_int_to_com	Pricing			
-rates_driver_prof	Pricing			
-rates_driver_market	Pricing			
-rates_driver_costs	Pricing			
-rates_driver_subs	Pricing			
-rates_driver_other	Pricing			
-rates_other_what	Pricing			
-customer_type_ac	Customers			
-customer_type_clinicians	Customers			
-customer_type_student	Customers			
-customer_type_comm	Customers			
-customer_type_other	Customers			
-customer_type_total	Customers			
-customer_type_other_what	Customers			
-customer_location_dept	Customers			
-customer_location_institute	Customers			
-customer_location_city	Customers			
-customer_location_state	Customers			
-customer_location_aus	Customers			
-customer_location_asia	Customers			
-customer_location_world	Customers			
-customer_type_total_2	Customers			
-signup_email				
-signup_excel				
-signup_project				
-signup_custom				
-signup_package				
-signup_job				
-signup_don_t				
-signup_other				
-signup_other_what				
-train_vendor_mat				
-train_vendor_live				
-train_inhouse_online				
-train_inhouse_group				
-train_inhouse_1to1				
-train_other				
-train_other_what				
-tracking_excel				
-tracking_custom				
-tracking_package				
-tracking_job				
-tracking_dont				
-tracking_other				
-tracking_other_what				
-satisfcation				
-marketing_budget	Marketing			
-marketing_budget_other_what	Marketing			
-marketing_plan	Marketing			
-marketing_personnel	Marketing			
-your_market___1	Marketing			
-your_market___2	Marketing			
-your_market___3	Marketing			
-your_market___4	Marketing			
-your_market___5	Marketing			
-your_market___6	Marketing			
-your_market___7	Marketing			
-marketing_platforms___1	Marketing			
-marketing_platforms___2	Marketing			
-marketing_platforms___3	Marketing			
-marketing_platforms___4	Marketing			
-marketing_platforms___5	Marketing			
-marketing_platforms___6	Marketing			
-marketing_platforms___7	Marketing			
-marketing_platforms___8	Marketing			
-marketing_platforms___9	Marketing			
-marketing_platforms___10	Marketing			
-marketing_other	Marketing			
-costs_user_fees	Costs			
-costs_charity	Costs			
-costs_state	Costs			
-costs_fed	Costs			
-costs_host	Costs			
-costs_philan	Costs			
-costs_other	Costs			
-costs_total	Costs			
-funding_applications				
-constraint_none	Constraints			
-constraint_staff	Constraints			
-constraint_services	Constraints			
-constraint_price_up	Constraints			
-constraint_price_down	Constraints			
-constraint_subcontract	Constraints			
-constraint_delay_equip	Constraints			
-constraint_delay_infra	Constraints			
-constraint_delay_projects	Constraints			
-constraint_inc_util	Constraints			
-revenue_currency	Revenue			
-revenue_other_dollars	Revenue			
-revenue_target	Revenue			
-revenue_change	Revenue			
-plan_fee4service				
-revenue				
-plan_self_service				
-plan_instrument_cap				
-plan_data				
-plan_staff				
-revenue_spend___1				
-revenue_spend___2				
-revenue_spend___3				
-revenue_spend___4				
-revenue_spend___5				
-revenue_spend___6				
-revenue_spend___7				
-revenue_spend_other_what				
-new_app_cetsa				
-new_app_flux				
-new_app_gly				
-new_app_hdx				
-new_app_clin				
-new_app_lipid				
-new_app_msi				
-new_app_meta				
-new_app_modi				
-new_app_proteomics				
-new_app_single				
-new_app_native				
-new_app_tails				
-new_instrument_2020				
-new_instrument_what				
-staff_change_this_year				
-staff_change_fte				
-user_change_this_year				
-user_change				
-fee4service_change_year				
-fee4service_change				
-fantasy_instrument				
-challenge				
-comments				
-email_for_results				
-annual_survey_complete				
+redcap	category	group	field	presentation_type	Multi	question
+host	Overview	host	host	histogram		Is your host institution a 
+host_other	Overview	host	host_other	text		What other types of host institution do you have?
+facility_type	Overview	facility	facility	histogram		Is your facility a 
+facitity_type_other	Overview	facility	facility_other	text		What other type of facility are you?
+position	Overview	position	position	histogram		Are you a...
+accreditation	Overview	accreditation	accreditation	histogram		Do you have, or plan to have an accreditation (e.g. NATA / ISO)?
+support___1	Overview	institutional support	institutional support	heatmap		Is there any infrastructure in place at your host institute that indirectly supports your facility in the following areas?   Please report support here that is not directly costed to your operating budget. For example, if a member of your team calculates the invoice for a user but then sends that another person in your institution that you do not pay the salary of to process that invoice, that would count as support for invoicing.  (choice=Invoicing)
+support___2	Overview	institutional support	institutional support	heatmap		Is there any infrastructure in place at your host institute that indirectly supports your facility in the following areas?   Please report support here that is not directly costed to your operating budget. For example, if a member of your team calculates the invoice for a user but then sends that another person in your institution that you do not pay the salary of to process that invoice, that would count as support for invoicing.  (choice=Ordering)
+support___3	Overview	institutional support	institutional support	heatmap		Is there any infrastructure in place at your host institute that indirectly supports your facility in the following areas?   Please report support here that is not directly costed to your operating budget. For example, if a member of your team calculates the invoice for a user but then sends that another person in your institution that you do not pay the salary of to process that invoice, that would count as support for invoicing.  (choice=Marketing (inc. websites))
+support___4	Overview	institutional support	institutional support	heatmap		Is there any infrastructure in place at your host institute that indirectly supports your facility in the following areas?   Please report support here that is not directly costed to your operating budget. For example, if a member of your team calculates the invoice for a user but then sends that another person in your institution that you do not pay the salary of to process that invoice, that would count as support for invoicing.  (choice=Fundraising)
+support___5	Overview	institutional support	institutional support	heatmap		Is there any infrastructure in place at your host institute that indirectly supports your facility in the following areas?   Please report support here that is not directly costed to your operating budget. For example, if a member of your team calculates the invoice for a user but then sends that another person in your institution that you do not pay the salary of to process that invoice, that would count as support for invoicing.  (choice=Grant-writing support)
+support___6	Overview	institutional support	institutional support	heatmap		Is there any infrastructure in place at your host institute that indirectly supports your facility in the following areas?   Please report support here that is not directly costed to your operating budget. For example, if a member of your team calculates the invoice for a user but then sends that another person in your institution that you do not pay the salary of to process that invoice, that would count as support for invoicing.  (choice=IT)
+support___7	Overview	institutional support	institutional support	heatmap		Is there any infrastructure in place at your host institute that indirectly supports your facility in the following areas?   Please report support here that is not directly costed to your operating budget. For example, if a member of your team calculates the invoice for a user but then sends that another person in your institution that you do not pay the salary of to process that invoice, that would count as support for invoicing.  (choice=Workshop)
+support___8	Overview	institutional support	institutional support	heatmap		Is there any infrastructure in place at your host institute that indirectly supports your facility in the following areas?   Please report support here that is not directly costed to your operating budget. For example, if a member of your team calculates the invoice for a user but then sends that another person in your institution that you do not pay the salary of to process that invoice, that would count as support for invoicing.  (choice=Other)
+host_other_2	Overview	institutional support	institutional support other	text		What other types of support does your institution provide?
+staff_cost	Staffing					Staff Costs
+staff_cost_currency	Staffing					Non-AUD currencies.
+staff_other_dollars	Staffing					What other currency are you reporting?
+ac_female_fte_con	Staffing					For your female academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+ac_female_fte_ft	Staffing					For your female academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+ac_female_fte_cas	Staffing					For your female academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+ac_female_fte_cal	Staffing					Your total female academic FTE is
+ac_male_fte_con	Staffing					For your male academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+ac_male_fte_ft	Staffing					For your male academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+ac_male_fte_cas	Staffing					For your male academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+academic_male_fte	Staffing					Your total male academic FTE is: 
+ac_other_fte_con	Staffing					For your other academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+ac_other_fte_ft	Staffing					For your other academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+ac_other_fte_cas	Staffing					For your other academic staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+ac_other_fte_cal	Staffing					Your total other academic FTE is: 
+pro_female_fte_con	Staffing					For your female professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+pro_female_fte_ft	Staffing					For your female professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+pro_female_fte_cas	Staffing					For your female professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+pro_female_fte_cal	Staffing					Your total female professional FTE is
+pro_male_fte_con	Staffing					For your male professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+pro_male_fte_ft	Staffing					For your male professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+pro_male_fte_cas	Staffing					For your male professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+pro_male_fte	Staffing					Your total male professional FTE is: 
+pro_other_fte_con	Staffing					For your other professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+pro_other_fte_ft	Staffing					For your other professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+pro_other_fte_cas	Staffing					For your other professional staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+pro_other_fte_cal	Staffing					Your total other professional FTE is:
+ad_female_fte_con	Staffing					For your female administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+ad_female_fte_ft	Staffing					For your female administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+ad_female_fte_cas	Staffing					For your female administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+ad_female_fte_cal	Staffing					Your total female administrative FTE is
+ad_male_fte_con	Staffing					For your male administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+ad_male_fte_ft	Staffing					For your male administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+ad_male_fte_cas	Staffing					For your male administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+ad_male_fte	Staffing					Your total male administrative FTE is: 
+ad_other_fte_con	Staffing					For your other administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on continuing appointments?
+ad_other_fte_ft	Staffing					For your other administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on fixed-term appointments?
+ad_other_fte_cas	Staffing					For your other administrative staff, how many Full-Time Equivalent (so accommodating part-time and fractional appointments) are on casual appointments?
+ad_other_fte_cal	Staffing					Your total other administrative FTE is: 
+staff_total_fte_cal	Staffing					Your total staff FTE is: 
+total_female_fte	Staffing					Female Staff FTE
+staff_total_fte_cal,total_male_fte,total_female_fte	Staffing	Staffing Breakdown	Staffing Breakdown	multibar	staff_total_fte_cal___(total_female_fte, total_male_fte)	None
+no_ms_q_ot_it	Instrumentation					Q-Orbitrap-IT
+no_ms_q_ot_it_ionmob	Instrumentation					Q-Orbitrap-IT_Ion_mobility
+no_ms_q_ot	Instrumentation					Q-Orbitrap
+no_ms_q_ot_ionmob	Instrumentation					Q-Orbitrap ion mobility
+no_ms_qtof	Instrumentation					QTOF
+no_ms_qtof_ionmob	Instrumentation					QTOF Ion mobility
+no_ms_qqq	Instrumentation					QQQ/QTRAP
+no_ms_qqq_ionmob	Instrumentation					QQQ/QTRAP Ion mobility
+no_ms_tof_tof	Instrumentation					TOF-TOF
+no_ms_tof_tof_ionmob	Instrumentation					TOF-TOF ion mobility
+no_ms_ft_icr	Instrumentation					FT-ICR
+no_ms_ft_icr_ionmob	Instrumentation					FT-ICR ion mob
+no_ms_it	Instrumentation					IT
+no_ms_it_ionmob	Instrumentation					IT ion mobility
+no_ms_s_q	Instrumentation					Single Q
+no_ms_s_q_ionmob	Instrumentation					Single Q ion mobility
+no_ms_other	Instrumentation					Other
+no_ms_other_ionmob	Instrumentation					Other ion mobility
+no_ms_total	Instrumentation					Total number of mass spectrometers
+no_ms_q_ot_it_new19	Instrumentation					Q-Orbitrap-IT
+no_ms_q_ot_new19	Instrumentation					Q-Orbitrap
+no_ms_qtof_new19	Instrumentation					QTOF
+no_ms_qqq_new19	Instrumentation					QQQ/QTRAP
+no_ms_tof_tof_new19	Instrumentation					TOF-TOF
+no_ms_ft_icr_new19	Instrumentation					FT-ICR
+no_ms_it_new19	Instrumentation					IT
+no_ms_s_q_new19	Instrumentation					Single Q
+no_ms_other_new19	Instrumentation					Other
+no_ms_q_ot_it_new19_fund						Q-Orbitrap-IT
+no_ms_q_o_new19_fund						Q-Orbitrap
+no_ms_qtof_new19_fund						QTOF
+no_ms_qqq_qtrap_new19_fund						QQQ/QTRAP
+no_ms_tof_tof_new19_fund						TOF-TOF
+no_ms_ft_icr_new19_fund						FT-ICR
+no_ms_it_new19_fund						IT
+no_ms_s_q_new19_fund						Single Q
+no_ms_other_new19_fund						Other
+ms_other_type						What other type of mass spectrometer do you have?
+ms_fund_source_other_info						What other type of procurement process has led to you getting one or more mass spectrometer(s)?
+ms_fund_source_host						Host institution funded
+ms_fund_source_phil						Philanthropy
+ms_fund_source_state						State grant
+ms_fund_source_fed						Federal grant (excluding NCRIS/RIIP)
+ms_fund_source_riip						Federal grant (NCRIS/RIIP)
+ms_fund_source_charity						Charity grant
+ms_fund_source_self						Self funded (user fees)
+ms_fund_source_other						Other
+ms_fund_source_total						The % funding total is:
+maintenance_cost	Maintenance					Maintenance cost
+maintenance_cost_currency	Maintenance					Non-AUD currencies.
+maintenance_other_dollars	Maintenance					What other currency are you reporting?
+maintenance_warranty	Maintenance					Manufacturer's warranty
+maintenance_ful	Maintenance					Full maintenance
+maintenance_prev	Maintenance					Preventative only
+maintenance_none	Maintenance					No pre-paid cover
+maintenance_other	Maintenance					Other
+ms_decom	Instrumentation					Did you decommission any mass spectrometers in 2021?
+ms_decom_model	Instrumentation					What model(s) did you decommission?
+soft_hdi	Software					HDI
+soft_scils	Software					SCilS
+soft_byonic	Software					Byonic
+soft_dia_nn	Software					DIA-NN
+soft_ency	Software					EncyclopaDIA
+soft_mascot	Software					Mascot
+soft_md	Software					Mass Dynamics
+soft_mh	Software					Mass Hunter
+soft_mq	Software					Max Quant
+soft_metamorph	Software					Metamorpheus
+soft_msfragger	Software					MSFragger
+soft_openms	Software					OpenMS
+soft_peaks	Software					Peaks
+soft_swath	Software					PeakView/SWATH
+soft_pqip	Software					Progenesis QI for Proteomics 
+soft_pd	Software					Proteome Discoverer
+soft_pp	Software					ProteinPilot
+soft_scaf	Software					Scaffold
+soft_spec	Software					Spectronaut
+soft_swathx	Software					SwathXtend
+soft_tpp	Software					Trans-Proteomics Pipeline
+soft_analyst	Software					Analyst
+soft_cd	Software					Compound Discoverer
+soft_chemstation	Software					ChemStation
+soft_ls	Software					LipidSearch
+soft_lv	Software					LipidView
+soft_pqi	Software					Protenesis QI
+soft_mlynx	Software					MassLynx 
+soft_msdial	Software					MS-DIAL 
+soft_metab_express	Software					MetabolomeExpress
+soft_freestyle	Software					FreeStyle
+soft_gcimage	Software					GCImage
+soft_insight	Software					Insight
+soft_multiq	Software					Multiquant
+soft_qual	Software					Qualbrowser
+soft_skyline	Software					Skyline
+soft_sciexos	Software					SciexOS
+soft_targetlynx	Software					TargetLynx
+soft_tf	Software					Tracefinder
+soft_other	Software					Other
+pricing_subscription	Pricing					Subscription
+pricing_fee4service_per_sample	Pricing					Fee-for-service (per sample billing)
+pricing_fee4service_per_hr	Pricing					Fee-for-service (per hour billing)
+pricing_self_per_sample	Pricing					Self-service (per sample billing)
+pricing_self_per_hour	Pricing					Self-service (per hour billing)
+pricing_other	Pricing					Other
+ms_fund_source_total_2	Pricing					The % pricing model total is:
+rates___1	Pricing					What pricing rates do you have? (choice=Academia (internal) rate)
+rates___2	Pricing					What pricing rates do you have? (choice=Academia (external) rate)
+rates___3	Pricing					What pricing rates do you have? (choice=Commercial customer rate)
+rates___4	Pricing					What pricing rates do you have? (choice=Other)
+rates_other	Pricing					What other rates do you have?
+rates_ac_int_to_ac_ex	Pricing					What typical percentage increase is applied to academia (external) customers relative to academia (internal)?
+rates_ac_int_to_com	Pricing					What typical percentage increase is applied to commercial customers relative to academia (internal)?
+rates_driver_prof	Pricing					Maximum profit
+rates_driver_market	Pricing					What the market will bare
+rates_driver_costs	Pricing					Cover direct costs
+rates_driver_subs	Pricing					What the host will subsidise
+rates_driver_other	Pricing					Other
+rates_other_what	Pricing					What other factors do you use to set you rates?
+customer_type_ac	Customers					Academics
+customer_type_clinicians	Customers					Clinicians
+customer_type_student	Customers					Students (Hons - PhD)
+customer_type_comm	Customers					Commercial
+customer_type_other	Customers					Other
+customer_type_total	Customers					The % funding total is:
+customer_type_other_what	Customers					What other type(s) of customer do you have?
+customer_location_dept	Customers					Host School/Department
+customer_location_institute	Customers					Host Institute/University
+customer_location_city	Customers					Local city
+customer_location_state	Customers					Local state
+customer_location_aus	Customers					Rest of your country (excluding your state)
+customer_location_asia	Customers					Asia-Pacific (excluding your country)
+customer_location_world	Customers					Rest of the world (excluding the Asia-pacific region)
+customer_type_total_2	Customers					The % funding total is:
+signup_email						e-mail/phone
+signup_excel						Spreadsheet or other generic system
+signup_project						Part of our project management system
+signup_custom						Custom build software package
+signup_package						Off the shelf customer relationship managment package
+signup_job						Part of someone's job
+signup_don_t						We don't use anything
+signup_other						Other
+signup_other_what						What other mechanisms do you use to sign up new users?
+train_vendor_mat						Vendor training material
+train_vendor_live						Vendor live sessions (face-to-face or video link)
+train_inhouse_online						In-house on-line training
+train_inhouse_group						In-house group sessions
+train_inhouse_1to1						In-house one-on-one sessions
+train_other						Other
+train_other_what						What other training methods do you use?
+tracking_excel						Excel or other generic system
+tracking_custom						Customer build software package
+tracking_package						Off the shelf dedicated package
+tracking_job						Part of someone's job
+tracking_dont						We don't use anything
+tracking_other						Other
+tracking_other_what						What other project management and tracking software do you use?
+satisfcation						Do you measure customer satisfaction?
+marketing_budget	Marketing					Do you have a budget for advertising and marketing?
+marketing_budget_other_what	Marketing					Tell us more about your budget for advertising and marketing
+marketing_plan	Marketing					Do you have a marketing plan?
+marketing_personnel	Marketing					Do you hire/use professional marketing personnel?
+your_market___1	Marketing					Who do you market to? (choice=Host School/Department)
+your_market___2	Marketing					Who do you market to? (choice=Host Institute/University)
+your_market___3	Marketing					Who do you market to? (choice=Local city)
+your_market___4	Marketing					Who do you market to? (choice=Local state)
+your_market___5	Marketing					Who do you market to? (choice=Rest of your country)
+your_market___6	Marketing					Who do you market to? (choice=Asia-Pacific)
+your_market___7	Marketing					Who do you market to? (choice=Rest of the world)
+marketing_platforms___1	Marketing					In 2021, what marketing platforms did you use? (choice=Facility website)
+marketing_platforms___2	Marketing					In 2021, what marketing platforms did you use? (choice=In-house mailing list/newsletter)
+marketing_platforms___3	Marketing					In 2021, what marketing platforms did you use? (choice=Host institute channels (website/staff news/yammer etc.))
+marketing_platforms___4	Marketing					In 2021, what marketing platforms did you use? (choice=Social media (Twitter, Facebook, LinkedIn etc.))
+marketing_platforms___5	Marketing					In 2021, what marketing platforms did you use? (choice=Word of mouth)
+marketing_platforms___6	Marketing					In 2021, what marketing platforms did you use? (choice=Seminars/webinars)
+marketing_platforms___7	Marketing					In 2021, what marketing platforms did you use? (choice=Teaching activities)
+marketing_platforms___8	Marketing					In 2021, what marketing platforms did you use? (choice=Trade displays at conferences)
+marketing_platforms___9	Marketing					In 2021, what marketing platforms did you use? (choice=Paid advertisements)
+marketing_platforms___10	Marketing					In 2021, what marketing platforms did you use? (choice=Other)
+marketing_other	Marketing					What other marketing options did you use?
+costs_user_fees	Costs					User fees
+costs_charity	Costs					Charity Grants
+costs_state	Costs					State Grants
+costs_fed	Costs					Federal Grants
+costs_host	Costs					Host subsidy
+costs_philan	Costs					Host philanthropy
+costs_other	Costs					Other
+costs_total	Costs					The % funding total is:
+funding_applications						Are facility staff expected to apply for research funding?
+constraint_none	Constraints					No fiscal constraints
+constraint_staff	Constraints					Reduce staff
+constraint_services	Constraints					Reduce services
+constraint_price_up	Constraints					Increasing prices
+constraint_price_down	Constraints					Reduce prices
+constraint_subcontract	Constraints					Subcontract services out
+constraint_delay_equip	Constraints					Delay equipment spending
+constraint_delay_infra	Constraints					Delay infrastructure spending
+constraint_delay_projects	Constraints					Delay the project
+constraint_inc_util	Constraints					Increasing utilisation
+revenue_currency	Revenue					Non-AUD currencies.
+revenue_other_dollars	Revenue					What other currency are you reporting?
+revenue_target	Revenue					Do you have an annual income/revenue target?
+revenue_change	Revenue					Relative to the 2021 calendar year, how has your revenue target changed for this year?
+plan_fee4service						Fee-for service work
+revenue						Total revenue ($)
+plan_self_service						Self-service
+plan_instrument_cap						Instrument capacity
+plan_data						Data analysis
+plan_staff						Staff capacity
+revenue_spend___1						With your facility user revenue, do you... (choice=Receive all of it)
+revenue_spend___2						With your facility user revenue, do you... (choice=Receive a % of it)
+revenue_spend___3						With your facility user revenue, do you... (choice=None of it)
+revenue_spend___4						With your facility user revenue, do you... (choice=It is used to reduce the operating deficit)
+revenue_spend___5						With your facility user revenue, do you... (choice=Is spent at the facilities discretion)
+revenue_spend___6						With your facility user revenue, do you... (choice=Can be carried over to the next year)
+revenue_spend___7						With your facility user revenue, do you... (choice=Other)
+revenue_spend_other_what						What other options do you have for user revenue?
+new_app_cetsa						CETSA
+new_app_flux						Fluxomics
+new_app_gly						Glycomics
+new_app_hdx						HDX
+new_app_clin						Large scale clinical MS
+new_app_lipid						Lipidomics
+new_app_msi						Mass spectrometry imaging
+new_app_meta						Metabolomics
+new_app_modi						Modificomics
+new_app_proteomics						Proteomics
+new_app_single						Single cell MS 'omics
+new_app_native						Structural proteomic MS
+new_app_tails						TAILS
+new_instrument_2020						Do you have funding to buy any instruments or software (total spend over A$50k) in the calendar year of 2022?
+new_instrument_what						What are you planning to buy?
+staff_change_this_year						During the calendar year of 2022, is your staff count likely to:
+staff_change_fte						If it is likely to go up or down, by how many FTE will it move?
+user_change_this_year						During the calendar year of 2022, is your number of users likely to:
+user_change						If it is likely to go up or down, by what percentage will it move?
+fee4service_change_year						During the calendar year of 2022,  will the amount of fee-for-service work you do likely to:
+fee4service_change						If it is likely to go up or down, by what percentage will it move?
+fantasy_instrument						If resources were not an issue, what one instrument would you buy today, and why?
+challenge						What do you see is the biggest challenge facing your facility in the next 3 years?
+comments						Do you have any other comments or suggestions?
+email_for_results						If you would like to receive a copy of the survey's aggregated and anonymised results please enter your email address
+annual_survey_complete						Complete?
