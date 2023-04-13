@@ -1,0 +1,298 @@
+redcap	category	group	field	presentation_type
+host	Overview	host	host	histogram
+host_other	Overview	host	host_other	text
+facility_type	Overview	facility	facility	histogram
+facitity_type_other	Overview	facility	facility_other	text
+position	Overview	position	position	histogram
+accreditation	Overview	accreditation	accreditation	histogram
+support___1	Overview	institutional support	institutional support	heatmap
+support___2	Overview	institutional support	institutional support	heatmap
+support___3	Overview	institutional support	institutional support	heatmap
+support___4	Overview	institutional support	institutional support	heatmap
+support___5	Overview	institutional support	institutional support	heatmap
+support___6	Overview	institutional support	institutional support	heatmap
+support___7	Overview	institutional support	institutional support	heatmap
+support___8	Overview	institutional support	institutional support	heatmap
+host_other_2	Overview	institutional support	institutional support other	text
+staff_cost	Staffing			
+staff_cost_currency	Staffing			
+staff_other_dollars	Staffing			
+ac_female_fte_con	Staffing			
+ac_female_fte_ft	Staffing			
+ac_female_fte_cas	Staffing			
+ac_female_fte_cal	Staffing	Female Academic Staff FTE	Female Academic Staff FTE	scatter
+ac_male_fte_con	Staffing			
+ac_male_fte_ft	Staffing			
+ac_male_fte_cas	Staffing			
+academic_male_fte	Staffing	Male Academic Staff FTE	Male Academic Staff FTE	scatter
+ac_other_fte_con	Staffing			
+ac_other_fte_ft	Staffing			
+ac_other_fte_cas	Staffing			
+ac_other_fte_cal	Staffing			
+pro_female_fte_con	Staffing			
+pro_female_fte_ft	Staffing			
+pro_female_fte_cas	Staffing			
+pro_female_fte_cal	Staffing			
+pro_male_fte_con	Staffing			
+pro_male_fte_ft	Staffing			
+pro_male_fte_cas	Staffing			
+pro_male_fte	Staffing			
+pro_other_fte_con	Staffing			
+pro_other_fte_ft	Staffing			
+pro_other_fte_cas	Staffing			
+pro_other_fte_cal	Staffing			
+ad_female_fte_con	Staffing			
+ad_female_fte_ft	Staffing			
+ad_female_fte_cas	Staffing			
+ad_female_fte_cal	Staffing			
+ad_male_fte_con	Staffing			
+ad_male_fte_ft	Staffing			
+ad_male_fte_cas	Staffing			
+ad_male_fte	Staffing			
+ad_other_fte_con	Staffing			
+ad_other_fte_ft	Staffing			
+ad_other_fte_cas	Staffing			
+ad_other_fte_cal	Staffing			
+staff_total_fte_cal	Staffing	Staff Total FTE	Staff Total FTE	scatter
+no_ms_q_ot_it	Instrumentation			
+no_ms_q_ot_it_ionmob	Instrumentation			
+no_ms_q_ot	Instrumentation			
+no_ms_q_ot_ionmob	Instrumentation			
+no_ms_qtof	Instrumentation			
+no_ms_qtof_ionmob	Instrumentation			
+no_ms_qqq	Instrumentation			
+no_ms_qqq_ionmob	Instrumentation			
+no_ms_tof_tof	Instrumentation			
+no_ms_tof_tof_ionmob	Instrumentation			
+no_ms_ft_icr	Instrumentation			
+no_ms_ft_icr_ionmob	Instrumentation			
+no_ms_it	Instrumentation			
+no_ms_it_ionmob	Instrumentation			
+no_ms_s_q	Instrumentation			
+no_ms_s_q_ionmob	Instrumentation			
+no_ms_other	Instrumentation			
+no_ms_other_ionmob	Instrumentation			
+no_ms_total	Instrumentation			
+no_ms_q_ot_it_new19	Instrumentation			
+no_ms_q_ot_new19	Instrumentation			
+no_ms_qtof_new19	Instrumentation			
+no_ms_qqq_new19	Instrumentation			
+no_ms_tof_tof_new19	Instrumentation			
+no_ms_ft_icr_new19	Instrumentation			
+no_ms_it_new19	Instrumentation			
+no_ms_s_q_new19	Instrumentation			
+no_ms_other_new19	Instrumentation			
+no_ms_q_ot_it_new19_fund				
+no_ms_q_o_new19_fund				
+no_ms_qtof_new19_fund				
+no_ms_qqq_qtrap_new19_fund				
+no_ms_tof_tof_new19_fund				
+no_ms_ft_icr_new19_fund				
+no_ms_it_new19_fund				
+no_ms_s_q_new19_fund				
+no_ms_other_new19_fund				
+ms_other_type				
+ms_fund_source_other_info				
+ms_fund_source_host				
+ms_fund_source_phil				
+ms_fund_source_state				
+ms_fund_source_fed				
+ms_fund_source_riip				
+ms_fund_source_charity				
+ms_fund_source_self				
+ms_fund_source_other				
+ms_fund_source_total				
+maintenance_cost	Maintenance			
+maintenance_cost_currency	Maintenance			
+maintenance_other_dollars	Maintenance			
+maintenance_warranty	Maintenance			
+maintenance_ful	Maintenance			
+maintenance_prev	Maintenance			
+maintenance_none	Maintenance			
+maintenance_other	Maintenance			
+ms_decom	Instrumentation			
+ms_decom_model	Instrumentation			
+soft_hdi	Software			
+soft_scils	Software			
+soft_byonic	Software			
+soft_dia_nn	Software			
+soft_ency	Software			
+soft_mascot	Software			
+soft_md	Software			
+soft_mh	Software			
+soft_mq	Software			
+soft_metamorph	Software			
+soft_msfragger	Software			
+soft_openms	Software			
+soft_peaks	Software			
+soft_swath	Software			
+soft_pqip	Software			
+soft_pd	Software			
+soft_pp	Software			
+soft_scaf	Software			
+soft_spec	Software			
+soft_swathx	Software			
+soft_tpp	Software			
+soft_analyst	Software			
+soft_cd	Software			
+soft_chemstation	Software			
+soft_ls	Software			
+soft_lv	Software			
+soft_pqi	Software			
+soft_mlynx	Software			
+soft_msdial	Software			
+soft_metab_express	Software			
+soft_freestyle	Software			
+soft_gcimage	Software			
+soft_insight	Software			
+soft_multiq	Software			
+soft_qual	Software			
+soft_skyline	Software			
+soft_sciexos	Software			
+soft_targetlynx	Software			
+soft_tf	Software			
+soft_other	Software			
+pricing_subscription	Pricing			
+pricing_fee4service_per_sample	Pricing			
+pricing_fee4service_per_hr	Pricing			
+pricing_self_per_sample	Pricing			
+pricing_self_per_hour	Pricing			
+pricing_other	Pricing			
+ms_fund_source_total_2	Pricing			
+rates___1	Pricing			
+rates___2	Pricing			
+rates___3	Pricing			
+rates___4	Pricing			
+rates_other	Pricing			
+rates_ac_int_to_ac_ex	Pricing			
+rates_ac_int_to_com	Pricing			
+rates_driver_prof	Pricing			
+rates_driver_market	Pricing			
+rates_driver_costs	Pricing			
+rates_driver_subs	Pricing			
+rates_driver_other	Pricing			
+rates_other_what	Pricing			
+customer_type_ac	Customers			
+customer_type_clinicians	Customers			
+customer_type_student	Customers			
+customer_type_comm	Customers			
+customer_type_other	Customers			
+customer_type_total	Customers			
+customer_type_other_what	Customers			
+customer_location_dept	Customers			
+customer_location_institute	Customers			
+customer_location_city	Customers			
+customer_location_state	Customers			
+customer_location_aus	Customers			
+customer_location_asia	Customers			
+customer_location_world	Customers			
+customer_type_total_2	Customers			
+signup_email				
+signup_excel				
+signup_project				
+signup_custom				
+signup_package				
+signup_job				
+signup_don_t				
+signup_other				
+signup_other_what				
+train_vendor_mat				
+train_vendor_live				
+train_inhouse_online				
+train_inhouse_group				
+train_inhouse_1to1				
+train_other				
+train_other_what				
+tracking_excel				
+tracking_custom				
+tracking_package				
+tracking_job				
+tracking_dont				
+tracking_other				
+tracking_other_what				
+satisfcation				
+marketing_budget	Marketing			
+marketing_budget_other_what	Marketing			
+marketing_plan	Marketing			
+marketing_personnel	Marketing			
+your_market___1	Marketing			
+your_market___2	Marketing			
+your_market___3	Marketing			
+your_market___4	Marketing			
+your_market___5	Marketing			
+your_market___6	Marketing			
+your_market___7	Marketing			
+marketing_platforms___1	Marketing			
+marketing_platforms___2	Marketing			
+marketing_platforms___3	Marketing			
+marketing_platforms___4	Marketing			
+marketing_platforms___5	Marketing			
+marketing_platforms___6	Marketing			
+marketing_platforms___7	Marketing			
+marketing_platforms___8	Marketing			
+marketing_platforms___9	Marketing			
+marketing_platforms___10	Marketing			
+marketing_other	Marketing			
+costs_user_fees	Costs			
+costs_charity	Costs			
+costs_state	Costs			
+costs_fed	Costs			
+costs_host	Costs			
+costs_philan	Costs			
+costs_other	Costs			
+costs_total	Costs			
+funding_applications				
+constraint_none	Constraints			
+constraint_staff	Constraints			
+constraint_services	Constraints			
+constraint_price_up	Constraints			
+constraint_price_down	Constraints			
+constraint_subcontract	Constraints			
+constraint_delay_equip	Constraints			
+constraint_delay_infra	Constraints			
+constraint_delay_projects	Constraints			
+constraint_inc_util	Constraints			
+revenue_currency	Revenue			
+revenue_other_dollars	Revenue			
+revenue_target	Revenue			
+revenue_change	Revenue			
+plan_fee4service				
+revenue				
+plan_self_service				
+plan_instrument_cap				
+plan_data				
+plan_staff				
+revenue_spend___1				
+revenue_spend___2				
+revenue_spend___3				
+revenue_spend___4				
+revenue_spend___5				
+revenue_spend___6				
+revenue_spend___7				
+revenue_spend_other_what				
+new_app_cetsa				
+new_app_flux				
+new_app_gly				
+new_app_hdx				
+new_app_clin				
+new_app_lipid				
+new_app_msi				
+new_app_meta				
+new_app_modi				
+new_app_proteomics				
+new_app_single				
+new_app_native				
+new_app_tails				
+new_instrument_2020				
+new_instrument_what				
+staff_change_this_year				
+staff_change_fte				
+user_change_this_year				
+user_change				
+fee4service_change_year				
+fee4service_change				
+fantasy_instrument				
+challenge				
+comments				
+email_for_results				
+annual_survey_complete				
