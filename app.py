@@ -6,7 +6,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-
+import matplotlib.ticker as ticker
 
 st.set_page_config(page_title="ACF survey",layout='wide')
 
@@ -16,6 +16,9 @@ DATA_DIR = os.path.join(WD, 'data')
 
 KEY_FILE = os.path.join(DATA_DIR, 'key_2.csv')
 DATA_FILE = os.path.join(DATA_DIR, 'data.csv')
+
+# for height of stacked bar charts
+FACTOR = 0.25
 
 key_df = pd.read_csv(KEY_FILE, sep ='\t')
 data_df = pd.read_csv(DATA_FILE)
@@ -95,13 +98,17 @@ data_df[software_keys] = data_df[software_keys].apply(lambda x: np.where(x > 1, 
 
 data_df['total_software'] = data_df[software_keys].sum(axis=1)
 
+# count maintenance
+keys = ['maintenance_warranty', 'maintenance_ful', 'maintenance_prev', 'maintenance_none', ]
+data_df['total_maintenance'] = data_df[keys].sum(axis=1)
+
 # reset data_df index startin at 1
 data_df.index = data_df.index + 1
 
-CATEGORIES = key_df['category'].unique()
+CATEGORIES = ['Home'] + key_df['category'].unique().tolist()
 
-# add streamlit sidebar
-st.sidebar.write("Hello World")
+# place logo.png
+st.sidebar.image('logo.png')
 
 # add selectbox to streamlit sidebar
 selection = st.sidebar.selectbox("Select a category", CATEGORIES)
@@ -115,7 +122,7 @@ def show_figure(fig):
 
         # if fig is string
         if isinstance(fig, str):
-            st.code(fig)
+            st.code(fig, line_numbers = True)
         else:
             st.pyplot(fig)
 
@@ -199,7 +206,7 @@ def make_heatmap(keys, aliases = None):
         data=data,
         x="level_0", y="level_1", hue="value", size="value",
         palette="vlag", hue_norm=(-1, 1), edgecolor=".7",
-        height=8, sizes=(50, 250), size_norm=(-.2, .8), aspect=2
+        height=4, sizes=(50, 250), size_norm=(-.2, .8), aspect=2
     )
 
     # change legend labels
@@ -241,7 +248,7 @@ def make_staff_breakdown_chart(label, keys, colors):
     data = data.reset_index()
 
     # set fig size
-    fig.set_size_inches(10, 0.2* len(data))
+    fig.set_size_inches(10, FACTOR * len(data))
     fig.tight_layout()
 
     data['staff_total_fte_cal'].plot.barh(ax=axs[0],linewidth=1, edgecolor='k', width = 1, color = 'lightgrey')
@@ -308,7 +315,7 @@ def make_stacked_bar_chart(keys, prefix = None, sortby = None, palette = None, l
 
     fig, ax = plt.subplots()
     data = data_df.copy()
-    fig.set_size_inches(10, 0.2* len(data))
+    fig.set_size_inches(10, FACTOR * len(data))
     # sort by 'total_instruments'
     if sortby is not None:
         data = data.sort_values(by=sortby, ascending=True)
@@ -320,7 +327,6 @@ def make_stacked_bar_chart(keys, prefix = None, sortby = None, palette = None, l
 
         # rearrange columns in alphabetical order
         data = data.reindex(sorted(data.columns), axis=1)
-
 
     # remove rows with all zeros
     data = data.loc[(data != 0).any(axis=1)]
@@ -353,7 +359,7 @@ def make_stacked_bar_chart(keys, prefix = None, sortby = None, palette = None, l
             except:
                 label_text = ''
             #label_text = f'{data.iloc[i, count]:.1f}' if data.iloc[i, count] > 0 else ''
-            ax.text(x + width / 2, y + height / 2, label_text, ha='center', va='center', fontsize=7)
+            ax.text(x + width / 2, y + height / 2, label_text, ha='center', va='center', fontsize=10)
 
     if xlabel is not None:
         ax.set_xlabel(xlabel)
@@ -369,7 +375,7 @@ def make_stacked_bar_chart(keys, prefix = None, sortby = None, palette = None, l
 def make_software_totals_bar_chart(key_dict):
     fig, ax = plt.subplots()
     data = data_df.copy()
-    fig.set_size_inches(10, 0.2* len(data))
+    fig.set_size_inches(10, FACTOR * len(data))
 
     data = data[key_dict.keys()]
 
@@ -421,7 +427,6 @@ def make_pricing_model_chart(keys, legend_at_right = False, convert_to_percentag
         # take the absolute value of each value
         data = data.abs()
 
-
     if convert_to_percentage:
         # calculate the percentage of each value for a row
         data = data.div(data.sum(axis=1), axis=0) * 100
@@ -432,7 +437,7 @@ def make_pricing_model_chart(keys, legend_at_right = False, convert_to_percentag
     if alias is not None:
         data = data.rename(columns=alias)
 
-    fig.set_size_inches(10, 0.2* len(data))
+    fig.set_size_inches(10, FACTOR * len(data))
 
     # strip 'fraction_' from column names
     data.columns = [i.replace('pricing_', '') for i in data.columns]
@@ -447,7 +452,7 @@ def make_pricing_model_chart(keys, legend_at_right = False, convert_to_percentag
             label_text = f'{int(data.iloc[i, count])}' if data.iloc[i, count] > 0 else ''
 
             #label_text = f'{data.iloc[i, count]:.1f}' if data.iloc[i, count] > 0 else ''
-            ax.text(x + width / 2, y + height / 2, label_text, ha='center', va='center', fontsize=7)
+            ax.text(x + width / 2, y + height / 2, label_text, ha='center', va='center', fontsize=10)
 
     ax.set_xlim(0, 100)
     ax.legend(loc='upper center', bbox_to_anchor=(0.2, -0.05), ncol=len(data.columns), edgecolor='k')
@@ -460,6 +465,78 @@ def make_pricing_model_chart(keys, legend_at_right = False, convert_to_percentag
     if legend_at_right:
         ax.legend(loc='upper center', bbox_to_anchor=(1.23, 0.8), edgecolor='k', ncol=1)
     show_figure(fig)
+
+def make_simple_histogram(keys):
+
+    fig, ax = plt.subplots()
+    data = data_df.copy()
+
+    data = data[keys]
+
+    print(data)
+    # plot histogram
+    data.plot.hist(ax=ax, bins=10, edgecolor='k', linewidth=1, alpha=0.5)
+    
+    show_figure(fig)
+
+def make_bubble_plot(keys, alias = None):
+
+    d = count_responses(data_df, keys)
+
+    # if alias is not None:
+    if alias is not None:
+        d = d.rename(columns=alias)
+
+    # convert wide to long
+    d = d.stack().reset_index()
+
+    # rename columns
+    d.columns = ['Value', 'rates_driver', 'count']
+
+    # convert the value count to int
+    d['count'] = d['count'].astype(int)
+
+    fig, ax = plt.subplots()
+
+   # sns.scatterplot(x='Value', y='rates_driver', size='count', data=d, ax=ax, legend='brief', sizes=(100, 2000) , palette='Blues_r')
+    sns.scatterplot(
+        x='Value', 
+        y='rates_driver', 
+        size='count', 
+        data=d, 
+        ax=ax, 
+        sizes=(100, 2000),
+        hue='count', 
+        palette='Blues', 
+        legend=False,
+        edgecolor='black',
+    )
+
+    # add count text inside the spot
+    for index, row in d.iterrows():
+        ax.text(
+            row['Value'], 
+            row['rates_driver'], 
+            row['count'], 
+            color='black', 
+            fontsize=10, 
+            ha='center', 
+            va='center'
+        )
+
+     # Set the x-axis tick locator and formatter
+    ax.xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_formatter(ticker.FormatStrFormatter('%d'))
+
+    sns.despine(offset=10, trim=True, ax = ax, bottom = True, left = True)
+
+    # expand all x and y margins by 0.5
+    ax.margins(x=0.1, y=0.1)
+
+    ax.text( -0.1, -0.2, 'Primary cost driver', fontsize=12, ha='left', va='center', transform=ax.transAxes )
+    ax.text( 0.8, -0.2, 'Minor cost driver', fontsize=12, ha='left', va='center', transform=ax.transAxes )
+    show_figure(fig)
+
 
 
 def count_responses(dataframe, selected_options):
@@ -501,6 +578,9 @@ if selection == 'Overview':
     keys = ['support___%s' % i for i in range(1, 9)]
     key_dict = dict(zip(keys, supports))
     make_heatmap(keys, aliases = key_dict)
+    st.write('Other support was')
+    make_text_box('host_other_2')
+
 
 elif selection == 'Staffing':
     st.header('Staffing')
@@ -534,6 +614,8 @@ elif selection == 'Instrumentation':
 
     st.markdown('### Total instruments by type')
     make_stacked_bar_chart(['total_instrument_count' + i for i in instruments], sortby = 'total_instruments', prefix = 'total_instrument_countno_ms_', palette = 'rainbow')
+    st.write('Other instruments were')
+    make_text_box('ms_other_type')
     st.markdown("""---""")
 
     st.markdown('### Total instruments by type')
@@ -551,15 +633,31 @@ elif selection == 'Instrumentation':
     st.markdown('### Staff FTE per instrument')
     make_simple_bar_chart('staff_fte_per_instrument')
 
+    keys = ['maintenance_warranty','maintenance_ful','maintenance_prev','maintenance_none']
+    values = ['Warranty', 'Full', 'Preventative', 'None']
+    alias_dict = dict(zip(keys, values))
+
+    st.markdown('### Maintenance')
+    make_stacked_bar_chart(keys, '',alias = alias_dict, sortby = 'total_maintenance')
+
+    st.write('Other maintenance comments were')
+    make_text_box('maintenance_other')
+
+    st.markdown('### Instrument funding')
+    keys = [ 'ms_fund_source_host', 'ms_fund_source_phil', 'ms_fund_source_state', 'ms_fund_source_fed', 'ms_fund_source_riip', 'ms_fund_source_charity', 'ms_fund_source_self', 'ms_fund_source_other']
+    values = ['Host institution', 'Philanthropic', 'State', 'Federal (ex. NCRIS/RIIP)', 'NCRIS/RIIP', 'Charity', 'Self', 'Other']
+    alias_dict = dict(zip(keys, values))
+    make_pricing_model_chart(keys, alias = alias_dict, convert_to_percentage=True, legend_at_right=True)
+
 elif selection == 'Software':
 
     st.header('Software')
-
     st.markdown('### Number of labs that use each software package')
-
     # create a dict of software names and keys
     software_dict = dict(zip(software_keys, software_names))
     make_software_totals_bar_chart(software_dict)
+    st.write('Other software was')
+    make_text_box('soft_other')
     st.markdown("""---""")
 
     st.markdown('### Lab use of different software packages')
@@ -570,40 +668,74 @@ elif selection == 'Pricing':
 
     st.header('Pricing')
 
-    st.markdown('### Lab billing model')
-
+    st.markdown('### What billing model does your lab use?')
     keys = [_ for _ in data_df.columns if 'pricing_' in _]
     make_pricing_model_chart(keys, legend_at_right = True)
     st.markdown("""---""")
 
+    st.markdown('### Which mechanism best matches how you sety our internal rates?')
     keys = [_ for _ in data_df.columns if 'rates_driver' in _]
     values = ['Maximum profit', 'What the market will bare', 'Cover direct costs', 'What the host will subsidise', ]
-    
-    # create a dict of software names and keys
     rates_dict = dict(zip(keys, values))
+    make_bubble_plot(keys, alias = rates_dict)
 
-    print(rates_dict)
-    #make_pricing_model_chart(keys, legend_at_right = True, convert_to_percentage = True, alias = rates_dict, subtract = 5)
+    st.markdown('### What pricing rates do you have?')
+    keys = [_ for _ in data_df.columns if 'rates___' in _]
+    values = ['Academia (internal)', 'Academia (external)', 'Commercial customer', 'Other']  
+    rates_dict = dict(zip(keys, values))
+    make_heatmap(keys, aliases = rates_dict)
+
+    st.markdown('### What is the average markup for external academics? (in %)')
+    make_simple_histogram('rates_ac_int_to_ac_ex')
     st.markdown("""---""")
-    d = count_responses(data_df, keys)
-    # convert wide to long
-    print(d)
-    d = d.stack().reset_index()
-    print(d)
-    # rename columns
-    d.columns = ['Value', 'rates_driver', 'count']
-    print(d)
-    # convert the value count to int
-    d['count'] = d['count'].astype(int)
-    print(d)
-    fig, ax = plt.subplots()
-    sns.scatterplot(x='Value', y='rates_driver', size='count', data=d, ax=ax, legend='brief', sizes=(100, 2000) )
-    show_figure(fig)
-"""
-'pricing_subscription',	'Subscription',
-'pricing_fee4service_per_sample',	'Fee-for-service (per sample billing)',
-'pricing_fee4service_per_hr',	'Fee-for-service (per hour billing)',
-'pricing_self_per_sample',	'Self-service (per sample billing)',
-'pricing_self_per_hour',	'Self-service (per hour billing)',
-'pricing_other',	'Other',
-"""
+
+    st.markdown('### What is the average markup for commercial customers? (in %)')
+    make_simple_histogram('rates_ac_int_to_com')
+    st.markdown("""---""")
+
+elif selection == 'Home':
+
+    _, col2, _ = st.columns([1, 8, 1])
+    with col2:
+        st.header('2022 Australasian Core Facility Member Survey Results')
+        st.write('A big THANK YOU to all those who participated in the 2022 ACF member survey!\
+                The survey covered a wide range of topics, including staffing, instrumentation, pricing, funding and support from host institutions.\
+                We are thrilled to present the results here. These results are a snapshot of the current state of the Australian and New Zealand core facility landscape. We hope you find them useful and informative.')
+        
+        st.markdown('### Highlights')
+
+        col1, col2 = st.columns([1,10])
+        with col2:
+            st.write(f'* {len(data_df)} facilities responded to the survey')
+            st.write(f'* ACF parter labs employ {int(data_df["staff_total_fte_cal"].sum())} FTE staff')
+            st.write(f'* ACF partner labs have {data_df["total_instruments"].sum()} instruments')
+
+        st.markdown('### Raw data')
+        st.write('The raw data from the survey is available for download. Note that this is the file that was directly produced by REDCap. Manual cleanup was required to produce the final results here.')
+        with open(DATA_FILE, "rb") as file:
+            btn = st.download_button(
+                    label="Download",
+                    data=file,
+                    file_name="2022_ACF_member_survey_results.csv",
+                    mime="text/csv",
+                )
+
+        st.markdown('### Acknowledgements')
+        st.write('The Australasian Core Facility Association (ACFA) would like to thank the following people for their contributions to the 2022 ACF member survey:')
+
+        acks = {
+            'Survey Coordination': ['Ben Crossett (USyd)', 'Ralf Schittenhelm (Monash)'],
+            'Survey Design': ['Paula Burton (Mass Dynamics)', 'Mark Condina (UniSA)'],
+            'Survey Testing': ['Matt Padula (UTS)', 'Tara Pukala (UoA)', 'Nick Williamson (Unimelb)'],
+            'Survey Analysis': ['Naveed Nadiv (USyd)', 'Michael Leeming (Unimelb)']
+        }
+
+        cols = st.columns(2)
+        counter = 0
+        for k,v in acks.items():
+            if counter > 1: counter = 0
+            with cols[counter]:
+                counter += 1
+                st.markdown('###### ' + k)
+                st.markdown('* ' + ', '.join(v))
+
