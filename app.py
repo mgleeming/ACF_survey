@@ -19,9 +19,8 @@ DATA_FILE = os.path.join(DATA_DIR, 'data.csv')
 
 key_df = pd.read_csv(KEY_FILE, sep ='\t')
 data_df = pd.read_csv(DATA_FILE)
-print(list(key_df))
-# aggregate data
 
+# aggregate data
 def sum_columns(df, key, new_col_name):
     cols = key_df[key_df['question'].str.contains(key)]['redcap']
     df[new_col_name] = df[cols].sum(axis=1)
@@ -76,6 +75,26 @@ for instrument in instruments:
 
 data_df['staff_fte_per_instrument'] = data_df['staff_total_fte_cal'] / data_df['total_instruments']
 
+software_names = [ 'HDI', 'SCilS', 'Byonic', 'DIA-NN', 'EncyclopaDIA', 'Mascot', 'Mass Dynamics', 'Mass Hunter', 'Max Quant', 'Metamorpheus', 'MSFragger', 'OpenMS', 'Peaks', 'PeakView/SWATH', 'Progenesis QI for Proteomics ', 'Proteome Discoverer', 'ProteinPilot', 'Scaffold', 'Spectronaut', 'SwathXtend', 'Trans-Proteomics Pipeline', 'Analyst', 'Compound Discoverer', 'ChemStation', 'LipidSearch', 'LipidView', 'Protenesis QI', 'MassLynx ', 'MS-DIAL ', 'MetabolomeExpress', 'FreeStyle', 'GCImage', 'Insight', 'Multiquant', 'Qualbrowser', 'Skyline', 'SciexOS', 'TargetLynx', 'Tracefinder']
+software_keys = [ 'soft_hdi', 'soft_scils', 'soft_byonic', 'soft_dia_nn', 'soft_ency', 'soft_mascot', 'soft_md', 'soft_mh', 'soft_mq', 'soft_metamorph', 'soft_msfragger', 'soft_openms', 'soft_peaks', 'soft_swath', 'soft_pqip', 'soft_pd', 'soft_pp', 'soft_scaf', 'soft_spec', 'soft_swathx', 'soft_tpp', 'soft_analyst', 'soft_cd', 'soft_chemstation', 'soft_ls', 'soft_lv', 'soft_pqi', 'soft_mlynx', 'soft_msdial', 'soft_metab_express', 'soft_freestyle', 'soft_gcimage', 'soft_insight', 'soft_multiq', 'soft_qual', 'soft_skyline', 'soft_sciexos', 'soft_targetlynx', 'soft_tf', ]
+software_type = ['Imaging', 'Imaging', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Metabolomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Proteomics', 'Targeted', 'Metabolomics', 'Targeted', 'Metabolomics', 'Metabolomics', 'Metabolomics', 'Metabolomics', 'Metabolomics', 'Metabolomics', 'General', 'Metabolomics', 'Targeted', 'Targeted', 'General', 'Targeted', 'General', 'Targeted', 'Targeted', ]
+software_typed_keys = ['%s_%s' % (software_type[i], software_names[i]) for i in range(len(software_keys))]
+software_alias_dict = dict(zip(software_keys, software_typed_keys))
+
+# set all non-numeric values to NAN
+data_df[software_keys] = data_df[software_keys].apply(pd.to_numeric, errors='coerce')
+
+# set all NAN values to 0
+data_df[software_keys] = data_df[software_keys].fillna(0)
+
+# set all values to ing
+data_df[software_keys] = data_df[software_keys].astype(int)
+
+# if value is greater than 1, set to 1
+data_df[software_keys] = data_df[software_keys].apply(lambda x: np.where(x > 1, 1, x))
+
+data_df['total_software'] = data_df[software_keys].sum(axis=1)
+
 # reset data_df index startin at 1
 data_df.index = data_df.index + 1
 
@@ -86,6 +105,20 @@ st.sidebar.write("Hello World")
 
 # add selectbox to streamlit sidebar
 selection = st.sidebar.selectbox("Select a category", CATEGORIES)
+
+def show_figure(fig):
+    # create three columns in 1:2:1 ratio
+    col1, col2, col3 = st.columns([1,6,1])
+    
+    # add plot to col2
+    with col2:
+
+        # if fig is string
+        if isinstance(fig, str):
+            st.code(fig)
+        else:
+            st.pyplot(fig)
+
 
 def make_simple_count_plot(key):
     fig, ax = plt.subplots()
@@ -98,8 +131,8 @@ def make_simple_count_plot(key):
 
     # horizontal countplot with black outline
     sns.countplot(data=data_df, y = key, ax=ax, orient='h', palette='Set3', linewidth=1, edgecolor='k')
-    st.pyplot(fig)
-    return
+    show_figure(fig)
+
 
 def make_simple_bar_chart(key, data = 'a'):
     fig, ax = plt.subplots()
@@ -121,18 +154,14 @@ def make_simple_bar_chart(key, data = 'a'):
     except:
         # plot a pandas series
         data.plot.barh(ax=ax, color='lightgrey', linewidth=1, edgecolor='k', width=1)
-
-    st.pyplot(fig)
-    return
+    show_figure(fig)
 
 def make_text_box(key):
     # find non-null values
     non_null = data_df[data_df[key].notnull()]
     if len(non_null) == 0: return
-    print(non_null)
     text = '\n'.join([row[key] for index, row in non_null.iterrows()])
-    st.code(text)
-    return
+    show_figure(text)
 
 def make_heatmap_old(keys):
     data = data_df.copy()
@@ -149,14 +178,16 @@ def make_heatmap_old(keys):
     fig, ax = plt.subplots()
     fig.set_size_inches(10, 4)
     sns.heatmap(data, ax=ax, cmap='Reds', linewidths=0.1, linecolor='k',yticklabels=True)
-    st.pyplot(fig)
+    show_figure(fig)
 
-
-def make_heatmap(keys):
+def make_heatmap(keys, aliases = None):
     data = data_df.copy()
     data = data[keys]
     data = data.replace('Checked', 1)
     data = data.replace('Unchecked', 0)
+
+    if aliases is not None:
+        data = data.rename(columns=aliases)
 
     # convert to long format
     data = data.stack().reset_index()
@@ -168,7 +199,7 @@ def make_heatmap(keys):
         data=data,
         x="level_0", y="level_1", hue="value", size="value",
         palette="vlag", hue_norm=(-1, 1), edgecolor=".7",
-        height=8, sizes=(50, 250), size_norm=(-.2, .8),
+        height=8, sizes=(50, 250), size_norm=(-.2, .8), aspect=2
     )
 
     # change legend labels
@@ -176,7 +207,25 @@ def make_heatmap(keys):
     new_labels = ['No', 'Yes']
     for t, l in zip(fig._legend.texts, new_labels): t.set_text(l)
 
-    st.pyplot(fig)
+    # get figure axis
+    ax = fig.axes[0][0]
+    # set x axis label to 'Lab'
+    ax.set_xlabel('Lab')
+    # set y axis label to ''
+    ax.set_ylabel('')
+
+    # change font size of axis labels and tick labels
+    for ax in fig.axes.flat:
+        ax.set_xlabel(ax.get_xlabel(), fontsize=18)
+        ax.set_ylabel(ax.get_ylabel(), fontsize=18)
+        ax.tick_params(axis='both', which='major', labelsize=16)
+
+    # change font size of legend
+    for t in fig._legend.texts: t.set_fontsize(16)
+
+    # change font size of title
+    fig.ax.set_title(fig.ax.get_title(), fontsize=20)
+    show_figure(fig)
 
 def make_staff_breakdown_chart(label, keys, colors):
 
@@ -211,10 +260,23 @@ def make_staff_breakdown_chart(label, keys, colors):
     data = data[keys]
     # strip 'fraction_' from column names
     data.columns = [i.replace('fraction_', '') for i in data.columns]
-    data.plot.barh(stacked=True, ax=axs[1],linewidth=1, edgecolor='k', color=colors, width = 1)
+    bars = data.plot.barh(stacked=True, ax=axs[1],linewidth=1, edgecolor='k', color=colors, width = 1, alpha = 0.5)
     axs[1].set_xlim(0, 100)
     axs[1].set_title(label)
     axs[1].legend(loc='upper center', bbox_to_anchor=(0.2, -0.05), ncol=len(data.columns), edgecolor='k')
+
+
+    for count, rect in enumerate(bars.containers):
+        for i, bar in enumerate(rect):
+            height = bar.get_height()
+            width = bar.get_width()
+            y = bar.get_y()
+            x = bar.get_x()
+            label_text = f'{int(data.iloc[i, count])}' if data.iloc[i, count] > 0 else ''
+
+            #label_text = f'{data.iloc[i, count]:.1f}' if data.iloc[i, count] > 0 else ''
+            axs[1].text(x + width / 2, y + height / 2, label_text, ha='center', va='center', fontsize=10)
+
 
     # remove x tics and labels
     axs[0].set_xticks([])
@@ -224,9 +286,10 @@ def make_staff_breakdown_chart(label, keys, colors):
 
     sns.despine(offset=10, trim=True, ax = axs[0], bottom = True)
     sns.despine(offset=10, trim=True, ax = axs[1], bottom = True, left = True)
-    st.pyplot(fig)
+    
+    show_figure(fig)
 
-def make_scatter_chart(x,y):
+def make_scatter_chart(x,y, xlabel = '', ylabel = ''):
 
     fig, ax = plt.subplots()
     data = data_df.copy()
@@ -236,9 +299,12 @@ def make_scatter_chart(x,y):
     data = data[data[x] > 0]
 
     data.plot.scatter(x=x, y=y, ax=ax)
-    st.pyplot(fig)
 
-def make_stacked_bar_chart(keys, prefix = None, sortby = None):
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    show_figure(fig)
+
+def make_stacked_bar_chart(keys, prefix = None, sortby = None, palette = None, legend_at_right = False, alias = None, xlabel='', ylabel=''):
 
     fig, ax = plt.subplots()
     data = data_df.copy()
@@ -246,14 +312,168 @@ def make_stacked_bar_chart(keys, prefix = None, sortby = None):
     # sort by 'total_instruments'
     if sortby is not None:
         data = data.sort_values(by=sortby, ascending=True)
-    data = data.sort_values(by='total_instruments', ascending=True)
+
     data = data[keys]
+
+    if alias is not None:
+        data = data.rename(columns=alias)
+
+        # rearrange columns in alphabetical order
+        data = data.reindex(sorted(data.columns), axis=1)
+
+
+    # remove rows with all zeros
+    data = data.loc[(data != 0).any(axis=1)]
+
+    # remove any columns with all zeros
+    data = data.loc[:, (data != 0).any(axis=0)]
 
     # strip prefix from column names
     data.columns = [i.replace(prefix, '') for i in data.columns]
-    data.plot.barh(stacked=True, ax=ax,linewidth=1, edgecolor='k', width = 1, colormap='Set3')
-    ax.legend(edgecolor='k')
-    st.pyplot(fig)
+
+    if not palette:
+        palette = 'Set3'
+        bars = data.plot.barh(stacked=True, ax=ax,linewidth=1, edgecolor='k', width = 1, colormap=palette)
+    else:
+        num_cols = len(data.columns)
+        cmap = plt.cm.get_cmap('rainbow')
+        colors = [cmap(i/num_cols) for i in range(num_cols)]
+        bars = data.plot.barh(stacked=True, ax=ax,linewidth=1, edgecolor='k', width = 1, color=colors, alpha = 0.5)
+
+    for count, rect in enumerate(bars.containers):
+        for i, bar in enumerate(rect):
+
+            height = bar.get_height()
+            width = bar.get_width()
+            y = bar.get_y()
+            x = bar.get_x()
+
+            try:
+                label_text = f'{int(data.iloc[i, count])}' if data.iloc[i, count] > 0 else ''
+            except:
+                label_text = ''
+            #label_text = f'{data.iloc[i, count]:.1f}' if data.iloc[i, count] > 0 else ''
+            ax.text(x + width / 2, y + height / 2, label_text, ha='center', va='center', fontsize=7)
+
+    if xlabel is not None:
+        ax.set_xlabel(xlabel)
+    if ylabel is not None:
+        ax.set_ylabel(ylabel)
+
+
+    # format legend as two columns to the right of the plot
+    if legend_at_right:
+        ax.legend(loc='upper center', bbox_to_anchor=(1.23, 1.2), edgecolor='k', ncol=1)
+    show_figure(fig)
+
+def make_software_totals_bar_chart(key_dict):
+    fig, ax = plt.subplots()
+    data = data_df.copy()
+    fig.set_size_inches(10, 0.2* len(data))
+
+    data = data[key_dict.keys()]
+
+    # rename columns using key_dict
+    data = data.rename(columns=key_dict)
+
+    # set all non-numeric values to NAN
+    data = data.apply(pd.to_numeric, errors='coerce')
+
+    # set all NAN values to 0
+    data = data.fillna(0)
+
+    # set all non-zero values to 1
+    data[data > 0] = 1
+    
+    data = data.sum()
+    data = data.sort_values(ascending=True)
+
+    data.plot.barh(ax=ax,linewidth=1, edgecolor='k', width = 1, colormap='Set3')
+    
+    # set x label to 'Number of institutions'
+    ax.set_xlabel('Number of Labs')
+    
+    show_figure(fig)
+
+def make_pricing_model_chart(keys, legend_at_right = False, convert_to_percentage = False, alias = None, subtract = None):
+
+    fig, ax = plt.subplots()
+    data = data_df.copy()
+
+    data = data[keys]
+
+    # remove rows with all zeros
+    data = data.loc[(data != 0).any(axis=1)]
+
+    # remove rows that only contain nan
+    data = data.dropna(how='all')
+
+    # convert to numeric
+    data = data.apply(pd.to_numeric, errors='coerce')
+
+    if subtract is not None:
+        # replace all NAN values with 0
+        data = data.fillna(0)
+
+        # for each value that is not 0 subtract the value in the subtract column
+        data[data > 0] = data[data > 0].sub(subtract, axis=0)
+
+        # take the absolute value of each value
+        data = data.abs()
+
+
+    if convert_to_percentage:
+        # calculate the percentage of each value for a row
+        data = data.div(data.sum(axis=1), axis=0) * 100
+
+    # sort by keys
+    data = data.sort_values(by=keys, ascending=True)
+
+    if alias is not None:
+        data = data.rename(columns=alias)
+
+    fig.set_size_inches(10, 0.2* len(data))
+
+    # strip 'fraction_' from column names
+    data.columns = [i.replace('pricing_', '') for i in data.columns]
+    bars =data.plot.barh(stacked=True, ax=ax,linewidth=1, edgecolor='k', colormap='Set3', width = 1)
+
+    for count, rect in enumerate(bars.containers):
+        for i, bar in enumerate(rect):
+            height = bar.get_height()
+            width = bar.get_width()
+            y = bar.get_y()
+            x = bar.get_x()
+            label_text = f'{int(data.iloc[i, count])}' if data.iloc[i, count] > 0 else ''
+
+            #label_text = f'{data.iloc[i, count]:.1f}' if data.iloc[i, count] > 0 else ''
+            ax.text(x + width / 2, y + height / 2, label_text, ha='center', va='center', fontsize=7)
+
+    ax.set_xlim(0, 100)
+    ax.legend(loc='upper center', bbox_to_anchor=(0.2, -0.05), ncol=len(data.columns), edgecolor='k')
+
+    # remove x tics and labels
+    ax.set_xticks([])
+    ax.set_xticklabels([])
+
+    sns.despine(offset=10, trim=True, ax = ax, bottom = True, left = True)
+    if legend_at_right:
+        ax.legend(loc='upper center', bbox_to_anchor=(1.23, 0.8), edgecolor='k', ncol=1)
+    show_figure(fig)
+
+
+def count_responses(dataframe, selected_options):
+    """
+    Counts the number of responses to selected options (columns) in a DataFrame.
+
+    Args:
+        dataframe (pandas.DataFrame): Input DataFrame with responses.
+        selected_options (list): List of column names to count responses for.
+
+    Returns:
+        pandas.DataFrame: DataFrame with counts of responses to each selected option.
+    """
+    return dataframe[selected_options].apply(pd.Series.value_counts).fillna(0).astype(int)
 
 if selection == 'Overview':
     st.header('Overview')
@@ -276,7 +496,11 @@ if selection == 'Overview':
     st.markdown("""---""")
 
     st.markdown('### Support from the host institution')
-    make_heatmap(['support___%s' % i for i in range(1, 9)])
+
+    supports = ['Invoicing', 'Ordering', 'Marketing (inc. websites)', 'Fundraising', 'Grant-writing support', 'IT', 'Workshop', 'Other']
+    keys = ['support___%s' % i for i in range(1, 9)]
+    key_dict = dict(zip(keys, supports))
+    make_heatmap(keys, aliases = key_dict)
 
 elif selection == 'Staffing':
     st.header('Staffing')
@@ -294,11 +518,11 @@ elif selection == 'Staffing':
     st.markdown("""---""")
 
     st.markdown('### Staff Contract Type Breakdown')
-    make_staff_breakdown_chart('Staff Contract', ['fraction_continuing', 'fraction_fixed_term', 'fraction_casual'], ['red', 'orange', 'green'])
+    make_staff_breakdown_chart('Staff Contract', ['fraction_continuing', 'fraction_fixed_term', 'fraction_casual'], ['purple', 'yellow', 'blue'])
     st.markdown("""---""")
 
     st.markdown('### Staff Cost Breakdown')
-    make_scatter_chart('staff_total_fte_cal', 'staff_cost_aud')
+    make_scatter_chart('staff_total_fte_cal', 'staff_cost_aud', 'Total FTE', 'Total Cost (AUD)')
     st.markdown("""---""")
 
 elif selection == 'Instrumentation':
@@ -309,7 +533,7 @@ elif selection == 'Instrumentation':
     st.markdown("""---""")
 
     st.markdown('### Total instruments by type')
-    make_stacked_bar_chart(['total_instrument_count' + i for i in instruments], sortby = 'total_instruments', prefix = 'total_instrument_countno_ms_')
+    make_stacked_bar_chart(['total_instrument_count' + i for i in instruments], sortby = 'total_instruments', prefix = 'total_instrument_countno_ms_', palette = 'rainbow')
     st.markdown("""---""")
 
     st.markdown('### Total instruments by type')
@@ -324,6 +548,62 @@ elif selection == 'Instrumentation':
     data = pd.DataFrame(data, columns=['total'])
     make_simple_bar_chart('total', data = data)
 
-
     st.markdown('### Staff FTE per instrument')
     make_simple_bar_chart('staff_fte_per_instrument')
+
+elif selection == 'Software':
+
+    st.header('Software')
+
+    st.markdown('### Number of labs that use each software package')
+
+    # create a dict of software names and keys
+    software_dict = dict(zip(software_keys, software_names))
+    make_software_totals_bar_chart(software_dict)
+    st.markdown("""---""")
+
+    st.markdown('### Lab use of different software packages')
+    make_stacked_bar_chart(software_keys, sortby = 'total_software', prefix = 'soft_', palette = 'rainbow', legend_at_right=True, alias = software_alias_dict, ylabel = 'Lab')
+    st.markdown("""---""")
+
+elif selection == 'Pricing':
+
+    st.header('Pricing')
+
+    st.markdown('### Lab billing model')
+
+    keys = [_ for _ in data_df.columns if 'pricing_' in _]
+    make_pricing_model_chart(keys, legend_at_right = True)
+    st.markdown("""---""")
+
+    keys = [_ for _ in data_df.columns if 'rates_driver' in _]
+    values = ['Maximum profit', 'What the market will bare', 'Cover direct costs', 'What the host will subsidise', ]
+    
+    # create a dict of software names and keys
+    rates_dict = dict(zip(keys, values))
+
+    print(rates_dict)
+    #make_pricing_model_chart(keys, legend_at_right = True, convert_to_percentage = True, alias = rates_dict, subtract = 5)
+    st.markdown("""---""")
+    d = count_responses(data_df, keys)
+    # convert wide to long
+    print(d)
+    d = d.stack().reset_index()
+    print(d)
+    # rename columns
+    d.columns = ['Value', 'rates_driver', 'count']
+    print(d)
+    # convert the value count to int
+    d['count'] = d['count'].astype(int)
+    print(d)
+    fig, ax = plt.subplots()
+    sns.scatterplot(x='Value', y='rates_driver', size='count', data=d, ax=ax, legend='brief', sizes=(100, 2000) )
+    show_figure(fig)
+"""
+'pricing_subscription',	'Subscription',
+'pricing_fee4service_per_sample',	'Fee-for-service (per sample billing)',
+'pricing_fee4service_per_hr',	'Fee-for-service (per hour billing)',
+'pricing_self_per_sample',	'Self-service (per sample billing)',
+'pricing_self_per_hour',	'Self-service (per hour billing)',
+'pricing_other',	'Other',
+"""
