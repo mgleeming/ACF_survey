@@ -10,7 +10,6 @@ import matplotlib.ticker as ticker
 
 st.set_page_config(page_title="ACF survey",layout='wide')
 
-print('==========================================================')
 WD = os.getcwd()
 DATA_DIR = os.path.join(WD, 'data')
 
