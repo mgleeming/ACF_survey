@@ -56,64 +56,64 @@ ad_other_fte_cal		Staffing	Your total other administrative FTE is:
 staff_total_fte_cal		Staffing	Your total staff FTE is: 
 total_female_fte		Staffing	Female Staff FTE
 staff_total_fte_cal,total_male_fte,total_female_fte		Staffing	None
-no_ms_q_ot_it	ms_type	Instrumentation	Q-Orbitrap-IT
-no_ms_q_ot_it_ionmob	ms_type	Instrumentation	Q-Orbitrap-IT_Ion_mobility
-no_ms_q_ot	ms_type	Instrumentation	Q-Orbitrap
-no_ms_q_ot_ionmob	ms_type	Instrumentation	Q-Orbitrap ion mobility
-no_ms_qtof	ms_type	Instrumentation	QTOF
-no_ms_qtof_ionmob	ms_type	Instrumentation	QTOF Ion mobility
-no_ms_qqq	ms_type	Instrumentation	QQQ/QTRAP
-no_ms_qqq_ionmob	ms_type	Instrumentation	QQQ/QTRAP Ion mobility
-no_ms_tof_tof	ms_type	Instrumentation	TOF-TOF
-no_ms_tof_tof_ionmob	ms_type	Instrumentation	TOF-TOF ion mobility
-no_ms_ft_icr	ms_type	Instrumentation	FT-ICR
-no_ms_ft_icr_ionmob	ms_type	Instrumentation	FT-ICR ion mob
-no_ms_it	ms_type	Instrumentation	IT
-no_ms_it_ionmob	ms_type	Instrumentation	IT ion mobility
-no_ms_s_q	ms_type	Instrumentation	Single Q
-no_ms_s_q_ionmob	ms_type	Instrumentation	Single Q ion mobility
-no_ms_other	ms_type	Instrumentation	Other
-no_ms_other_ionmob	ms_type	Instrumentation	Other ion mobility
-no_ms_total		Instrumentation	Total number of mass spectrometers
-no_ms_q_ot_it_new19	ms_new	Instrumentation	Q-Orbitrap-IT
-no_ms_q_ot_new19	ms_new	Instrumentation	Q-Orbitrap
-no_ms_qtof_new19	ms_new	Instrumentation	QTOF
-no_ms_qqq_new19	ms_new	Instrumentation	QQQ/QTRAP
-no_ms_tof_tof_new19	ms_new	Instrumentation	TOF-TOF
-no_ms_ft_icr_new19	ms_new	Instrumentation	FT-ICR
-no_ms_it_new19	ms_new	Instrumentation	IT
-no_ms_s_q_new19	ms_new	Instrumentation	Single Q
-no_ms_other_new19	ms_new	Instrumentation	Other
-no_ms_q_ot_it_new19_fund	ms_new_fund	Instrumentation	Q-Orbitrap-IT
-no_ms_q_o_new19_fund	ms_new_fund	Instrumentation	Q-Orbitrap
-no_ms_qtof_new19_fund	ms_new_fund	Instrumentation	QTOF
-no_ms_qqq_qtrap_new19_fund	ms_new_fund	Instrumentation	QQQ/QTRAP
-no_ms_tof_tof_new19_fund	ms_new_fund	Instrumentation	TOF-TOF
-no_ms_ft_icr_new19_fund	ms_new_fund	Instrumentation	FT-ICR
-no_ms_it_new19_fund	ms_new_fund	Instrumentation	IT
-no_ms_s_q_new19_fund	ms_new_fund	Instrumentation	Single Q
-no_ms_other_new19_fund	ms_new_fund	Instrumentation	Other
-ms_other_type		Instrumentation	What other type of mass spectrometer do you have?
-ms_fund_source_other_info		Instrumentation	What other type of procurement process has led to you getting one or more mass spectrometer(s)?
-ms_fund_source_host		Instrumentation	Host institution funded
-ms_fund_source_phil		Instrumentation	Philanthropy
-ms_fund_source_state		Instrumentation	State grant
-ms_fund_source_fed		Instrumentation	Federal grant (excluding NCRIS/RIIP)
-ms_fund_source_riip		Instrumentation	Federal grant (NCRIS/RIIP)
-ms_fund_source_charity		Instrumentation	Charity grant
-ms_fund_source_self		Instrumentation	Self funded (user fees)
-ms_fund_source_other		Instrumentation	Other
-ms_fund_source_total		Instrumentation	The % funding total is:
-maintenance_cost		Maintenance	Maintenance cost
-maintenance_cost_currency		Maintenance	Non-AUD currencies.
-maintenance_other_dollars		Maintenance	What other currency are you reporting?
-maintenance_warranty		Maintenance	Manufacturer's warranty
-maintenance_ful		Maintenance	Full maintenance
-maintenance_prev		Maintenance	Preventative only
-maintenance_none		Maintenance	No pre-paid cover
-maintenance_other		Maintenance	Other
-ms_decom		Instrumentation	Did you decommission any mass spectrometers in 2021?
-ms_decom_model		Instrumentation	What model(s) did you decommission?
+no_ms_q_ot_it	ms_type	Instrumentation and Maintenance	Q-Orbitrap-IT
+no_ms_q_ot_it_ionmob	ms_type	Instrumentation and Maintenance	Q-Orbitrap-IT_Ion_mobility
+no_ms_q_ot	ms_type	Instrumentation and Maintenance	Q-Orbitrap
+no_ms_q_ot_ionmob	ms_type	Instrumentation and Maintenance	Q-Orbitrap ion mobility
+no_ms_qtof	ms_type	Instrumentation and Maintenance	QTOF
+no_ms_qtof_ionmob	ms_type	Instrumentation and Maintenance	QTOF Ion mobility
+no_ms_qqq	ms_type	Instrumentation and Maintenance	QQQ/QTRAP
+no_ms_qqq_ionmob	ms_type	Instrumentation and Maintenance	QQQ/QTRAP Ion mobility
+no_ms_tof_tof	ms_type	Instrumentation and Maintenance	TOF-TOF
+no_ms_tof_tof_ionmob	ms_type	Instrumentation and Maintenance	TOF-TOF ion mobility
+no_ms_ft_icr	ms_type	Instrumentation and Maintenance	FT-ICR
+no_ms_ft_icr_ionmob	ms_type	Instrumentation and Maintenance	FT-ICR ion mob
+no_ms_it	ms_type	Instrumentation and Maintenance	IT
+no_ms_it_ionmob	ms_type	Instrumentation and Maintenance	IT ion mobility
+no_ms_s_q	ms_type	Instrumentation and Maintenance	Single Q
+no_ms_s_q_ionmob	ms_type	Instrumentation and Maintenance	Single Q ion mobility
+no_ms_other	ms_type	Instrumentation and Maintenance	Other
+no_ms_other_ionmob	ms_type	Instrumentation and Maintenance	Other ion mobility
+no_ms_total		Instrumentation and Maintenance	Total number of mass spectrometers
+no_ms_q_ot_it_new19	ms_new	Instrumentation and Maintenance	Q-Orbitrap-IT
+no_ms_q_ot_new19	ms_new	Instrumentation and Maintenance	Q-Orbitrap
+no_ms_qtof_new19	ms_new	Instrumentation and Maintenance	QTOF
+no_ms_qqq_new19	ms_new	Instrumentation and Maintenance	QQQ/QTRAP
+no_ms_tof_tof_new19	ms_new	Instrumentation and Maintenance	TOF-TOF
+no_ms_ft_icr_new19	ms_new	Instrumentation and Maintenance	FT-ICR
+no_ms_it_new19	ms_new	Instrumentation and Maintenance	IT
+no_ms_s_q_new19	ms_new	Instrumentation and Maintenance	Single Q
+no_ms_other_new19	ms_new	Instrumentation and Maintenance	Other
+no_ms_q_ot_it_new19_fund	ms_new_fund	Instrumentation and Maintenance	Q-Orbitrap-IT
+no_ms_q_o_new19_fund	ms_new_fund	Instrumentation and Maintenance	Q-Orbitrap
+no_ms_qtof_new19_fund	ms_new_fund	Instrumentation and Maintenance	QTOF
+no_ms_qqq_qtrap_new19_fund	ms_new_fund	Instrumentation and Maintenance	QQQ/QTRAP
+no_ms_tof_tof_new19_fund	ms_new_fund	Instrumentation and Maintenance	TOF-TOF
+no_ms_ft_icr_new19_fund	ms_new_fund	Instrumentation and Maintenance	FT-ICR
+no_ms_it_new19_fund	ms_new_fund	Instrumentation and Maintenance	IT
+no_ms_s_q_new19_fund	ms_new_fund	Instrumentation and Maintenance	Single Q
+no_ms_other_new19_fund	ms_new_fund	Instrumentation and Maintenance	Other
+ms_other_type		Instrumentation and Maintenance	What other type of mass spectrometer do you have?
+ms_fund_source_other_info		Instrumentation and Maintenance	What other type of procurement process has led to you getting one or more mass spectrometer(s)?
+ms_fund_source_host		Instrumentation and Maintenance	Host institution funded
+ms_fund_source_phil		Instrumentation and Maintenance	Philanthropy
+ms_fund_source_state		Instrumentation and Maintenance	State grant
+ms_fund_source_fed		Instrumentation and Maintenance	Federal grant (excluding NCRIS/RIIP)
+ms_fund_source_riip		Instrumentation and Maintenance	Federal grant (NCRIS/RIIP)
+ms_fund_source_charity		Instrumentation and Maintenance	Charity grant
+ms_fund_source_self		Instrumentation and Maintenance	Self funded (user fees)
+ms_fund_source_other		Instrumentation and Maintenance	Other
+ms_fund_source_total		Instrumentation and Maintenance	The % funding total is:
+maintenance_cost		Instrumentation and Maintenance	Maintenance cost
+maintenance_cost_currency		Instrumentation and Maintenance	Non-AUD currencies.
+maintenance_other_dollars		Instrumentation and Maintenance	What other currency are you reporting?
+maintenance_warranty		Instrumentation and Maintenance	Manufacturer's warranty
+maintenance_ful		Instrumentation and Maintenance	Full maintenance
+maintenance_prev		Instrumentation and Maintenance	Preventative only
+maintenance_none		Instrumentation and Maintenance	No pre-paid cover
+maintenance_other		Instrumentation and Maintenance	Other
+ms_decom		Instrumentation and Maintenance	Did you decommission any mass spectrometers in 2021?
+ms_decom_model		Instrumentation and Maintenance	What model(s) did you decommission?
 soft_hdi		Software	HDI
 soft_scils		Software	SCilS
 soft_byonic		Software	Byonic

@@ -17,10 +17,16 @@ KEY_FILE = os.path.join(DATA_DIR, 'key_2.csv')
 DATA_FILE = os.path.join(DATA_DIR, 'data.csv')
 
 # for height of stacked bar charts
-FACTOR = 0.25
+FACTOR = 0.3
 
 key_df = pd.read_csv(KEY_FILE, sep ='\t')
 data_df = pd.read_csv(DATA_FILE)
+
+# remove rows that contaiin 'Incomplete' in the 'annual_survey_complete' column
+data_df = data_df[data_df['annual_survey_complete'] != 'Incomplete']
+
+# reset index
+data_df = data_df.reset_index(drop=True)
 
 # aggregate data
 def sum_columns(df, key, new_col_name):
@@ -29,7 +35,8 @@ def sum_columns(df, key, new_col_name):
     return df
 
 data_df = sum_columns(data_df, 'Your total female', 'total_female_fte') 
-data_df = sum_columns(data_df, 'Your total male', 'total_male_fte') 
+data_df = sum_columns(data_df, 'Your total male', 'total_male_fte')
+data_df = sum_columns(data_df, 'Your total other', 'total_other_fte')
 data_df = sum_columns(data_df, 'academic FTE is', 'total_academic_fte')
 data_df = sum_columns(data_df, 'professional FTE is', 'total_professional_fte')
 data_df = sum_columns(data_df, 'administrative FTE is', 'total_administrative_fte')
@@ -40,6 +47,7 @@ data_df = sum_columns(data_df, 'are on casual appointments', 'total_casual_appoi
 # divide total_female_fte by staff_total_fte_cal
 data_df['fraction_female'] = data_df['total_female_fte'] / data_df['staff_total_fte_cal'] * 100
 data_df['fraction_male'] = data_df['total_male_fte'] / data_df['staff_total_fte_cal'] * 100
+data_df['fraction_non_binary'] = data_df['total_other_fte'] / data_df['staff_total_fte_cal'] * 100
 
 data_df['fraction_academic'] = data_df['total_academic_fte'] / data_df['staff_total_fte_cal'] * 100
 data_df['fraction_professional'] = data_df['total_professional_fte'] / data_df['staff_total_fte_cal'] * 100
@@ -125,7 +133,6 @@ def show_figure(fig):
         else:
             st.pyplot(fig)
 
-
 def make_simple_count_plot(key):
     fig, ax = plt.subplots()
 
@@ -169,28 +176,20 @@ def make_text_box(key):
     text = '\n'.join([row[key] for index, row in non_null.iterrows()])
     show_figure(text)
 
-def make_heatmap_old(keys):
-    data = data_df.copy()
-    data = data[keys]
-    data = data.replace('Checked', 1)
-    data = data.replace('Unchecked', 0)
-    data['total'] = data.sum(axis=1)
-    data = data.sort_values(by='total', ascending=False)
-    data = data.drop(columns=['total'])
-    data = data.reset_index(drop=True)
-    data.index = data.index + 1
-
-    # make plotly histogram with categorical data
-    fig, ax = plt.subplots()
-    fig.set_size_inches(10, 4)
-    sns.heatmap(data, ax=ax, cmap='Reds', linewidths=0.1, linecolor='k',yticklabels=True)
-    show_figure(fig)
-
 def make_heatmap(keys, aliases = None):
     data = data_df.copy()
     data = data[keys]
     data = data.replace('Checked', 1)
     data = data.replace('Unchecked', 0)
+
+    # caluclate the sum of each column
+    column_totals = data.sum(axis=0)
+
+    # sort columns by total
+    column_totals = column_totals.sort_values(ascending=False)
+
+    # sort data by columns
+    data = data[column_totals.index]
 
     if aliases is not None:
         data = data.rename(columns=aliases)
@@ -200,7 +199,7 @@ def make_heatmap(keys, aliases = None):
 
     # rename columns
     data.columns = ['level_0', 'level_1', 'value']
-
+    
     fig = sns.relplot(
         data=data,
         x="level_0", y="level_1", hue="value", size="value",
@@ -231,6 +230,7 @@ def make_heatmap(keys, aliases = None):
 
     # change font size of title
     fig.ax.set_title(fig.ax.get_title(), fontsize=20)
+    
     show_figure(fig)
 
 def make_staff_breakdown_chart(label, keys, colors):
@@ -244,6 +244,8 @@ def make_staff_breakdown_chart(label, keys, colors):
 
     # sort by key
     data = data.sort_values(by='staff_total_fte_cal', ascending=True)
+
+    data = data.sort_values(by=keys[0], ascending=False)
     data = data.reset_index()
 
     # set fig size
@@ -255,6 +257,7 @@ def make_staff_breakdown_chart(label, keys, colors):
     max_satff_fte = data['staff_total_fte_cal'].max()
     axs[0].set_xlim(0, max_satff_fte + 1)
     axs[0].set_title('Total FTE')
+
     # annotate bars
     for i, v in enumerate(data['staff_total_fte_cal']):
         # if v is a whole number, don't show decimal
@@ -271,7 +274,7 @@ def make_staff_breakdown_chart(label, keys, colors):
     axs[1].set_title(label)
     axs[1].legend(loc='upper center', bbox_to_anchor=(0.2, -0.05), ncol=len(data.columns), edgecolor='k')
 
-
+    print(data)
     for count, rect in enumerate(bars.containers):
         for i, bar in enumerate(rect):
             height = bar.get_height()
@@ -573,7 +576,7 @@ if selection == 'Overview':
 
     st.markdown('### Support from the host institution')
 
-    supports = ['Invoicing', 'Ordering', 'Marketing (inc. websites)', 'Fundraising', 'Grant-writing support', 'IT', 'Workshop', 'Other']
+    supports = ['Invoicing', 'Ordering', 'Marketing', 'Fundraising', 'Grant-writing', 'IT', 'Workshop', 'Other']
     keys = ['support___%s' % i for i in range(1, 9)]
     key_dict = dict(zip(keys, supports))
     make_heatmap(keys, aliases = key_dict)
@@ -584,19 +587,15 @@ if selection == 'Overview':
 elif selection == 'Staffing':
     st.header('Staffing')
 
-    st.markdown('### Total FTE')
-    make_simple_bar_chart('staff_total_fte_cal')
+    st.markdown('### Staff Gender Count')
+    make_staff_breakdown_chart('Staff Sex', ['fraction_female', 'fraction_male', 'fraction_non_binary'], ['pink', 'blue', 'green'])
     st.markdown("""---""")
 
-    st.markdown('### Staff Sex Breakdown')
-    make_staff_breakdown_chart('Staff Sex', ['fraction_female', 'fraction_male'], ['pink', 'blue'])
-    st.markdown("""---""")
-
-    st.markdown('### Staff Role Breakdown')
+    st.markdown('### Staff Role Count')
     make_staff_breakdown_chart('Staff Role', ['fraction_academic', 'fraction_professional', 'fraction_administrative'], ['red', 'orange', 'green'])
     st.markdown("""---""")
 
-    st.markdown('### Staff Contract Type Breakdown')
+    st.markdown('### Staff Contract Count')
     make_staff_breakdown_chart('Staff Contract', ['fraction_continuing', 'fraction_fixed_term', 'fraction_casual'], ['purple', 'yellow', 'blue'])
     st.markdown("""---""")
 
@@ -604,8 +603,8 @@ elif selection == 'Staffing':
     make_scatter_chart('staff_total_fte_cal', 'staff_cost_aud', 'Total FTE', 'Total Cost (AUD)')
     st.markdown("""---""")
 
-elif selection == 'Instrumentation':
-    st.header('Instrumentation')
+elif selection == 'Instrumentation and Maintenance':
+    st.header('Instrumentation and Maintenance')
 
     st.markdown('### Total instruments')
     make_simple_bar_chart('total_instruments')
@@ -705,36 +704,16 @@ elif selection == 'Home':
 
         col1, col2 = st.columns([1,10])
         with col2:
-            st.write(f'* {len(data_df)} facilities responded to the survey')
+            st.write("* 43 facilities were invited to participate")
+            st.write(f'* {len(data_df)} facilities completed the survey')
             st.write(f'* ACF parter labs employ {int(data_df["staff_total_fte_cal"].sum())} FTE staff')
             st.write(f'* ACF partner labs have {data_df["total_instruments"].sum()} instruments')
 
         st.markdown('### Raw data')
-        st.write('The raw data from the survey is available for download. Note that this is the file that was directly produced by REDCap. Manual cleanup was required to produce the final results here.')
-        with open(DATA_FILE, "rb") as file:
-            btn = st.download_button(
-                    label="Download",
-                    data=file,
-                    file_name="2022_ACF_member_survey_results.csv",
-                    mime="text/csv",
-                )
+        st.write('The raw data from the survey is available upon request to Dr. Ben Crossett (ben.crossett@sydney.edu.au).')
 
         st.markdown('### Acknowledgements')
-        st.write('The Australasian Core Facility Association (ACFA) would like to thank the following people for their contributions to the 2022 ACF member survey:')
-
-        acks = {
-            'Survey Coordination': ['Ben Crossett (USyd)', 'Ralf Schittenhelm (Monash)'],
-            'Survey Design': ['Paula Burton (Mass Dynamics)', 'Mark Condina (UniSA)'],
-            'Survey Testing': ['Matt Padula (UTS)', 'Tara Pukala (UoA)', 'Nick Williamson (Unimelb)'],
-            'Survey Analysis': ['Naveed Nadiv (USyd)', 'Michael Leeming (Unimelb)']
-        }
-
-        cols = st.columns(2)
-        counter = 0
-        for k,v in acks.items():
-            if counter > 1: counter = 0
-            with cols[counter]:
-                counter += 1
-                st.markdown('###### ' + k)
-                st.markdown('* ' + ', '.join(v))
-
+        st.write('The Australasian Core Facility Network would like to thank everyone who has contributions to the ACF survey over the years, \
+                  especially Ben Crossett (USyd) for Survey Coordination; Ralf Schittenhelm (Monash), Matt Padula (UTS), Tara Pukala (UoA), \
+                 Nick Williamson (UniMelb), Paula Burton (Mass Dynamics), Mark Condina (Mass Dynamics) for design and testing; \
+                 Naveed Nadiv (USyd) and Michael Leeming (Unimelb) data visualisation')
