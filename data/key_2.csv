@@ -189,30 +189,30 @@ customer_location_aus		Customers	Rest of your country (excluding your state)
 customer_location_asia		Customers	Asia-Pacific (excluding your country)
 customer_location_world		Customers	Rest of the world (excluding the Asia-pacific region)
 customer_type_total_2		Customers	The % funding total is:
-signup_email		Signup	e-mail/phone
-signup_excel		Signup	Spreadsheet or other generic system
-signup_project		Signup	Part of our project management system
-signup_custom		Signup	Custom build software package
-signup_package		Signup	Off the shelf customer relationship managment package
-signup_job		Signup	Part of someone's job
-signup_don_t		Signup	We don't use anything
-signup_other		Signup	Other
-signup_other_what		Signup	What other mechanisms do you use to sign up new users?
-train_vendor_mat		Training	Vendor training material
-train_vendor_live		Training	Vendor live sessions (face-to-face or video link)
-train_inhouse_online		Training	In-house on-line training
-train_inhouse_group		Training	In-house group sessions
-train_inhouse_1to1		Training	In-house one-on-one sessions
-train_other		Training	Other
-train_other_what		Training	What other training methods do you use?
-tracking_excel		Tracking	Excel or other generic system
-tracking_custom		Tracking	Customer build software package
-tracking_package		Tracking	Off the shelf dedicated package
-tracking_job		Tracking	Part of someone's job
-tracking_dont		Tracking	We don't use anything
-tracking_other		Tracking	Other
-tracking_other_what		Tracking	What other project management and tracking software do you use?
-satisfcation		Tracking	Do you measure customer satisfaction?
+signup_email			e-mail/phone
+signup_excel			Spreadsheet or other generic system
+signup_project			Part of our project management system
+signup_custom			Custom build software package
+signup_package			Off the shelf customer relationship managment package
+signup_job			Part of someone's job
+signup_don_t			We don't use anything
+signup_other			Other
+signup_other_what			What other mechanisms do you use to sign up new users?
+train_vendor_mat		Customers	Vendor training material
+train_vendor_live		Customers	Vendor live sessions (face-to-face or video link)
+train_inhouse_online		Customers	In-house on-line training
+train_inhouse_group		Customers	In-house group sessions
+train_inhouse_1to1		Customers	In-house one-on-one sessions
+train_other		Customers	Other
+train_other_what		Customers	What other training methods do you use?
+tracking_excel		Project Management	Excel or other generic system
+tracking_custom		Project Management	Customer build software package
+tracking_package		Project Management	Off the shelf dedicated package
+tracking_job		Project Management	Part of someone's job
+tracking_dont		Project Management	We don't use anything
+tracking_other		Project Management	Other
+tracking_other_what		Project Management	What other project management and tracking software do you use?
+satisfcation			Do you measure customer satisfaction?
 marketing_budget		Marketing	Do you have a budget for advertising and marketing?
 marketing_budget_other_what		Marketing	Tell us more about your budget for advertising and marketing
 marketing_plan		Marketing	Do you have a marketing plan?
@@ -235,15 +235,15 @@ marketing_platforms___8		Marketing	In 2021, what marketing platforms did you use
 marketing_platforms___9		Marketing	In 2021, what marketing platforms did you use? (choice=Paid advertisements)
 marketing_platforms___10		Marketing	In 2021, what marketing platforms did you use? (choice=Other)
 marketing_other		Marketing	What other marketing options did you use?
-costs_user_fees		Costs	User fees
-costs_charity		Costs	Charity Grants
-costs_state		Costs	State Grants
-costs_fed		Costs	Federal Grants
-costs_host		Costs	Host subsidy
-costs_philan		Costs	Host philanthropy
-costs_other		Costs	Other
-costs_total		Costs	The % funding total is:
-funding_applications		Funding	Are facility staff expected to apply for research funding?
+costs_user_fees		Revenue and Cost Recovery	User fees
+costs_charity		Revenue and Cost Recovery	Charity Grants
+costs_state		Revenue and Cost Recovery	State Grants
+costs_fed		Revenue and Cost Recovery	Federal Grants
+costs_host		Revenue and Cost Recovery	Host subsidy
+costs_philan		Revenue and Cost Recovery	Host philanthropy
+costs_other		Revenue and Cost Recovery	Other
+costs_total		Revenue and Cost Recovery	The % funding total is:
+funding_applications		Staffing	Are facility staff expected to apply for research funding?
 constraint_none		Constraints	No fiscal constraints
 constraint_staff		Constraints	Reduce staff
 constraint_services		Constraints	Reduce services
@@ -254,37 +254,37 @@ constraint_delay_equip		Constraints	Delay equipment spending
 constraint_delay_infra		Constraints	Delay infrastructure spending
 constraint_delay_projects		Constraints	Delay the project
 constraint_inc_util		Constraints	Increasing utilisation
-revenue_currency		Revenue	Non-AUD currencies.
-revenue_other_dollars		Revenue	What other currency are you reporting?
-revenue_target		Revenue	Do you have an annual income/revenue target?
-revenue_change		Revenue	Relative to the 2021 calendar year, how has your revenue target changed for this year?
+revenue_currency		Revenue and Cost Recovery	Non-AUD currencies.
+revenue_other_dollars		Revenue and Cost Recovery	What other currency are you reporting?
+revenue_target		Revenue and Cost Recovery	Do you have an annual income/revenue target?
+revenue_change		Revenue and Cost Recovery	Relative to the 2021 calendar year, how has your revenue target changed for this year?
 plan_fee4service			Fee-for service work
 revenue			Total revenue ($)
 plan_self_service			Self-service
 plan_instrument_cap			Instrument capacity
 plan_data			Data analysis
 plan_staff			Staff capacity
-revenue_spend___1			With your facility user revenue, do you... (choice=Receive all of it)
-revenue_spend___2			With your facility user revenue, do you... (choice=Receive a % of it)
-revenue_spend___3			With your facility user revenue, do you... (choice=None of it)
-revenue_spend___4			With your facility user revenue, do you... (choice=It is used to reduce the operating deficit)
-revenue_spend___5			With your facility user revenue, do you... (choice=Is spent at the facilities discretion)
-revenue_spend___6			With your facility user revenue, do you... (choice=Can be carried over to the next year)
-revenue_spend___7			With your facility user revenue, do you... (choice=Other)
+revenue_spend___1		Revenue and Cost Recovery	With your facility user revenue, do you... (choice=Receive all of it)
+revenue_spend___2		Revenue and Cost Recovery	With your facility user revenue, do you... (choice=Receive a % of it)
+revenue_spend___3		Revenue and Cost Recovery	With your facility user revenue, do you... (choice=None of it)
+revenue_spend___4		Revenue and Cost Recovery	With your facility user revenue, do you... (choice=It is used to reduce the operating deficit)
+revenue_spend___5		Revenue and Cost Recovery	With your facility user revenue, do you... (choice=Is spent at the facilities discretion)
+revenue_spend___6		Revenue and Cost Recovery	With your facility user revenue, do you... (choice=Can be carried over to the next year)
+revenue_spend___7		Revenue and Cost Recovery	With your facility user revenue, do you... (choice=Other)
 revenue_spend_other_what			What other options do you have for user revenue?
-new_app_cetsa			CETSA
-new_app_flux			Fluxomics
-new_app_gly			Glycomics
-new_app_hdx			HDX
-new_app_clin			Large scale clinical MS
-new_app_lipid			Lipidomics
-new_app_msi			Mass spectrometry imaging
-new_app_meta			Metabolomics
-new_app_modi			Modificomics
-new_app_proteomics			Proteomics
-new_app_single			Single cell MS 'omics
-new_app_native			Structural proteomic MS
-new_app_tails			TAILS
+new_app_cetsa		Project Types	CETSA
+new_app_flux		Project Types	Fluxomics
+new_app_gly		Project Types	Glycomics
+new_app_hdx		Project Types	HDX
+new_app_clin		Project Types	Large scale clinical MS
+new_app_lipid		Project Types	Lipidomics
+new_app_msi		Project Types	Mass spectrometry imaging
+new_app_meta		Project Types	Metabolomics
+new_app_modi		Project Types	Modificomics
+new_app_proteomics		Project Types	Proteomics
+new_app_single		Project Types	Single cell MS 'omics
+new_app_native		Project Types	Structural proteomic MS
+new_app_tails		Project Types	TAILS
 new_instrument_2020			Do you have funding to buy any instruments or software (total spend over A$50k) in the calendar year of 2022?
 new_instrument_what			What are you planning to buy?
 staff_change_this_year			During the calendar year of 2022, is your staff count likely to:

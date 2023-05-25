@@ -112,13 +112,25 @@ data_df['total_maintenance'] = data_df[keys].sum(axis=1)
 # reset data_df index startin at 1
 data_df.index = data_df.index + 1
 
-CATEGORIES = ['Home'] + key_df['category'].unique().tolist()
+CATEGORIES = ['Home'] + [_ for _ in key_df['category'].unique().tolist() if not isinstance(_, float)]
 
 # place logo.png
 st.sidebar.image('logo.png')
 
 # add selectbox to streamlit sidebar
 selection = st.sidebar.selectbox("Select a category", CATEGORIES)
+
+if "counter" not in st.session_state:
+    st.session_state.counter = 1
+
+js = f"""
+        <p>{st.session_state.counter}</p>
+        <script>
+            window.parent.document.querySelector('section.main').scrollTo(0, 0);
+        </script>
+    """
+# note = adding the session state forces the js to re-render each time
+st.components.v1.html(js, height=0)
 
 def show_figure(fig):
     # create three columns in 1:2:1 ratio
@@ -133,17 +145,20 @@ def show_figure(fig):
         else:
             st.pyplot(fig)
 
-def make_simple_count_plot(key):
+def make_simple_count_plot(key, order = None):
     fig, ax = plt.subplots()
 
     # get number of unique values from series
     unique_values = len(data_df[key].unique())
-
+    
     # set fig size
-    fig.set_size_inches(10, 0.8*unique_values)
+    if order:
+        fig.set_size_inches(10, 0.8*len(order))
+    else:
+        fig.set_size_inches(10, 0.8*unique_values)
 
     # horizontal countplot with black outline
-    sns.countplot(data=data_df, y = key, ax=ax, orient='h', palette='Set3', linewidth=1, edgecolor='k')
+    sns.countplot(data=data_df, y = key, ax=ax, orient='h', palette='Set3', linewidth=1, edgecolor='k', order = order)
     show_figure(fig)
 
 
@@ -176,7 +191,7 @@ def make_text_box(key):
     text = '\n'.join([row[key] for index, row in non_null.iterrows()])
     show_figure(text)
 
-def make_heatmap(keys, aliases = None):
+def make_heatmap(keys, aliases = None, legend_title = 'Legend'):
     data = data_df.copy()
     data = data[keys]
     data = data.replace('Checked', 1)
@@ -208,7 +223,7 @@ def make_heatmap(keys, aliases = None):
     )
 
     # change legend labels
-    fig._legend.set_title('Support')
+    fig._legend.set_title(legend_title)
     new_labels = ['No', 'Yes']
     for t, l in zip(fig._legend.texts, new_labels): t.set_text(l)
 
@@ -274,7 +289,6 @@ def make_staff_breakdown_chart(label, keys, colors):
     axs[1].set_title(label)
     axs[1].legend(loc='upper center', bbox_to_anchor=(0.2, -0.05), ncol=len(data.columns), edgecolor='k')
 
-    print(data)
     for count, rect in enumerate(bars.containers):
         for i, bar in enumerate(rect):
             height = bar.get_height()
@@ -458,7 +472,8 @@ def make_pricing_model_chart(keys, legend_at_right = False, convert_to_percentag
 
     ax.set_xlim(0, 100)
     ax.legend(loc='upper center', bbox_to_anchor=(0.2, -0.05), ncol=len(data.columns), edgecolor='k')
-
+    ax.set_xlabel('Percentage of total')
+    ax.set_ylabel('Lab')
     # remove x tics and labels
     ax.set_xticks([])
     ax.set_xticklabels([])
@@ -466,6 +481,8 @@ def make_pricing_model_chart(keys, legend_at_right = False, convert_to_percentag
     sns.despine(offset=10, trim=True, ax = ax, bottom = True, left = True)
     if legend_at_right:
         ax.legend(loc='upper center', bbox_to_anchor=(1.23, 0.8), edgecolor='k', ncol=1)
+
+
     show_figure(fig)
 
 def make_simple_histogram(keys):
@@ -475,14 +492,12 @@ def make_simple_histogram(keys):
 
     data = data[keys]
 
-    print(data)
     # plot histogram
     data.plot.hist(ax=ax, bins=10, edgecolor='k', linewidth=1, alpha=0.5)
     
     show_figure(fig)
 
-def make_bubble_plot(keys, alias = None):
-
+def make_bubble_plot(keys, alias = None, x_left_text = 'Primary cost driver', x_right_text = 'Minor cost driver', y_axis_label = None):
     d = count_responses(data_df, keys)
 
     # if alias is not None:
@@ -526,7 +541,10 @@ def make_bubble_plot(keys, alias = None):
             va='center'
         )
 
-     # Set the x-axis tick locator and formatter
+    # set y axis label
+    ax.set_ylabel(y_axis_label)
+
+    # Set the x-axis tick locator and formatter
     ax.xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     ax.xaxis.set_major_formatter(ticker.FormatStrFormatter('%d'))
 
@@ -535,8 +553,8 @@ def make_bubble_plot(keys, alias = None):
     # expand all x and y margins by 0.5
     ax.margins(x=0.1, y=0.1)
 
-    ax.text( -0.1, -0.2, 'Primary cost driver', fontsize=12, ha='left', va='center', transform=ax.transAxes )
-    ax.text( 0.8, -0.2, 'Minor cost driver', fontsize=12, ha='left', va='center', transform=ax.transAxes )
+    ax.text( -0.1, -0.2, x_left_text, fontsize=12, ha='left', va='center', transform=ax.transAxes )
+    ax.text( 0.8, -0.2, x_right_text, fontsize=12, ha='left', va='center', transform=ax.transAxes )
     show_figure(fig)
 
 
@@ -555,6 +573,7 @@ def count_responses(dataframe, selected_options):
     return dataframe[selected_options].apply(pd.Series.value_counts).fillna(0).astype(int)
 
 if selection == 'Overview':
+    st.session_state.counter += 1
     st.header('Overview')
     st.markdown('### Host institution type')
     make_simple_count_plot('host')
@@ -585,6 +604,7 @@ if selection == 'Overview':
 
 
 elif selection == 'Staffing':
+    st.session_state.counter += 1
     st.header('Staffing')
 
     st.markdown('### Staff Gender Count')
@@ -603,9 +623,13 @@ elif selection == 'Staffing':
     make_scatter_chart('staff_total_fte_cal', 'staff_cost_aud', 'Total FTE', 'Total Cost (AUD)')
     st.markdown("""---""")
 
-elif selection == 'Instrumentation and Maintenance':
-    st.header('Instrumentation and Maintenance')
+    st.markdown('### Are facility staff expected to apply for research funding?')
+    make_simple_count_plot('funding_applications')
+    st.markdown("""---""")
 
+elif selection == 'Instrumentation and Maintenance':
+    st.session_state.counter += 1
+    st.header('Instrumentation and Maintenance')
     st.markdown('### Total instruments')
     make_simple_bar_chart('total_instruments')
     st.markdown("""---""")
@@ -648,7 +672,7 @@ elif selection == 'Instrumentation and Maintenance':
     make_pricing_model_chart(keys, alias = alias_dict, convert_to_percentage=True, legend_at_right=True)
 
 elif selection == 'Software':
-
+    st.session_state.counter += 1
     st.header('Software')
     st.markdown('### Number of labs that use each software package')
     # create a dict of software names and keys
@@ -663,7 +687,7 @@ elif selection == 'Software':
     st.markdown("""---""")
 
 elif selection == 'Pricing':
-
+    st.session_state.counter += 1
     st.header('Pricing')
 
     st.markdown('### What billing model does your lab use?')
@@ -671,7 +695,7 @@ elif selection == 'Pricing':
     make_pricing_model_chart(keys, legend_at_right = True)
     st.markdown("""---""")
 
-    st.markdown('### Which mechanism best matches how you sety our internal rates?')
+    st.markdown('### Which mechanism best matches how you set your internal rates?')
     keys = [_ for _ in data_df.columns if 'rates_driver' in _]
     values = ['Maximum profit', 'What the market will bare', 'Cover direct costs', 'What the host will subsidise', ]
     rates_dict = dict(zip(keys, values))
@@ -691,8 +715,139 @@ elif selection == 'Pricing':
     make_simple_histogram('rates_ac_int_to_com')
     st.markdown("""---""")
 
-elif selection == 'Home':
+elif selection == 'Customers':
+    st.session_state.counter += 1
+    st.header('Customers')
 
+    st.markdown('### What is the breakdown of your client base?')
+    keys = ['customer_type_ac', 'customer_type_clinicians', 'customer_type_student', 'customer_type_comm', 'customer_type_other']
+    alias = ['Acacemic', "Clinicians", "Students", "Commercial", "Other"]
+    alias_dict = dict(zip(keys, alias))
+    make_pricing_model_chart(keys, legend_at_right = True, alias = alias_dict)
+
+    st.write('Other client types were')
+    make_text_box('customer_type_other_what')
+
+    st.markdown("""---""")
+
+    st.markdown('### Where are your clients from?')
+    keys = ['customer_location_dept', 'customer_location_institute', 'customer_location_city', 'customer_location_state', 'customer_location_aus', 'customer_location_asia', 'customer_location_world']
+    alias = ['Host department', 'Host institute', 'Local city', 'Local state', 'Australia', 'Asia-Pacific', 'World']
+    alias_dict = dict(zip(keys, alias))
+    make_pricing_model_chart(keys, legend_at_right = True, alias = alias_dict)
+    st.markdown("""---""")
+
+    st.markdown('### What training do you offer your clients?')
+    keys = ['train_vendor_mat', 'train_vendor_live', 'train_inhouse_online', 'train_inhouse_group', 'train_inhouse_1to1', 'train_other']
+    alias = ['Vendor material', 'Vendor live', 'In-house online', 'In-house group', 'In-house 1-to-1', 'Other']
+    alias_dict = dict(zip(keys, alias))
+    make_bubble_plot(keys, alias = alias_dict, x_left_text='Frequently', x_right_text='Rarely')
+
+    st.markdown("""---""")
+
+elif selection == 'Constraints':
+    st.session_state.counter += 1
+    st.header('Constraints')
+    st.markdown('### How do you deal with fiscal constraints?')
+    keys = ['constraint_none', 'constraint_staff', 'constraint_services', 'constraint_price_up', 'constraint_price_down', 'constraint_subcontract', 'constraint_delay_equip', 'constraint_delay_infra', 'constraint_delay_projects', 'constraint_inc_util']
+    alias = ['No fiscal constraint', 'Reduce staff', 'Reduce services', 'Increase prices', 'Decrease prices', 'Subcontract', 'Delay equipment purchase', 'Delay infrastructurespend', 'Delay projects', 'Increase utilisation']
+    alias_dict = dict(zip(keys, alias))
+    make_bubble_plot(keys, alias = alias_dict, x_left_text='Used most', x_right_text='Used least')
+    st.markdown("""---""")
+
+elif selection == 'Project Management':
+    st.session_state.counter += 1
+    st.header('Project Management')
+    st.markdown('### How do you track and manage projects?')
+
+    keys = ['tracking_excel', 'tracking_custom', 'tracking_package', 'tracking_job', 'tracking_dont', 'tracking_other']
+    alias = ['Excel', 'Custom software', 'Commercial package', "Someone's job", "Don’t track", 'Other']
+    alias_dict = dict(zip(keys, alias))
+    make_bubble_plot(keys, alias = alias_dict, x_left_text='Used most', x_right_text='Used least')
+
+elif selection == 'Revenue and Cost Recovery':
+    st.session_state.counter += 1
+    st.header('Revenue and Cost Recovery')
+    st.markdown('### How do you recover your direct costs?')
+
+    keys = ['costs_user_fees', 'costs_charity', 'costs_state', 'costs_fed', 'costs_host', 'costs_philan', 'costs_other']
+    alias = ['User fees', 'Charity', 'State Grants', 'Federal Grants', 'Host Subsidy', 'Philanthropic', 'Other']
+    alias_dict = dict(zip(keys, alias))
+    make_pricing_model_chart(keys, legend_at_right = True, alias = alias_dict)
+    st.markdown("""---""")
+
+    st.markdown('### Do you have an annual revenue target?')
+    make_simple_count_plot('revenue_target')
+    st.markdown("""---""")
+
+    st.markdown('### How has your revenue target changed since last year?')
+    make_simple_count_plot('revenue_change')
+    st.markdown("""---""")
+
+    st.markdown('### Do you recieve your facility revenue?')
+    keys = ['revenue_spend___1', 'revenue_spend___2', 'revenue_spend___3']
+    alias = ['Receive all of it', 'Receive some of it', 'Receive none of it']
+    alias_dict = dict(zip(keys, alias))
+    make_heatmap(keys, aliases = alias_dict)
+    st.markdown("""---""")
+
+    st.markdown('### What happens to your user revenue?')
+    keys = ['revenue_spend___4', 'revenue_spend___5', 'revenue_spend___6']
+    alias = ['Used to decrease operating deficit', 'Spent at our discression', 'Carried over to next year']
+    alias_dict = dict(zip(keys, alias))
+    make_heatmap(keys, aliases = alias_dict)
+    st.markdown("""---""")
+
+elif selection == 'Project Types':
+    st.session_state.counter += 1
+    st.header('Project Types')
+
+    keys = ['new_app_cetsa', 'new_app_flux', 'new_app_gly', 'new_app_hdx', 'new_app_clin', 'new_app_lipid', 'new_app_msi', 'new_app_meta', 'new_app_modi', 'new_app_proteomics', 'new_app_single', 'new_app_native', 'new_app_tails']
+    alias = ['CETSA', 'Fluxomics', 'Glycomics', 'HDX', 'Large scale clinical MS', 'Lipidomics', 'Mass spectrometry imaging', 'Metabolomics', 'Modificomics', 'Proteomics', 'Single cell MS \'omics', 'Structural proteomic MS', 'TAILS']
+    order = [ 'Already do, a lot', 'Already do, a bit', 'Getting this', 'Would like', 'No plans for', "Definitely don't want", 'Had it, shut it down', "Don't know" ]
+    for i, key in enumerate(keys):
+        st.markdown(f'### {alias[i]}')
+        make_simple_count_plot(key, order = order)
+        st.markdown("""---""")
+
+elif selection == 'Marketing':
+    st.session_state.counter += 1
+    st.header('Marketing')
+
+    st.markdown('### Do you have a budget for advertising and marketing?')
+    make_simple_count_plot('marketing_budget')
+    st.write('Other marketing budget types were:')
+    make_text_box('marketing_budget_other_what')
+    st.markdown("""---""")
+
+    st.write('### Do you have a marketing plan?')
+    make_simple_count_plot('marketing_plan')
+    st.markdown("""---""")
+
+    st.write('### Do you hire/use professional marketing personnel?')
+    make_simple_count_plot('marketing_personnel')
+    st.markdown("""---""")
+
+    st.markdown('### Who do you advertise to?')
+    keys = [ 'your_market___1', 'your_market___2', 'your_market___3', 'your_market___4', 'your_market___5', 'your_market___6', 'your_market___7' ]
+    alias = ['Host department', 'Host institute', 'Local city', 'Local state', 'Australia', 'Asia-Pacific', 'World']
+    key_dict = dict(zip(keys, alias))
+    make_heatmap(keys, aliases = key_dict)
+    st.markdown("""---""")
+
+    st.markdown('### What marketing platforms do you use?')
+    keys = [
+    'marketing_platforms___1', 'marketing_platforms___2', 'marketing_platforms___3',
+    'marketing_platforms___4', 'marketing_platforms___5', 'marketing_platforms___6',
+    'marketing_platforms___7', 'marketing_platforms___8', 'marketing_platforms___9',
+    'marketing_platforms___10' ]
+    alias = ['Facility website', 'In-house mailing list', 'Host institute channels', 'Social media', 'Word of mouth', 'Seminars/webinars', 'Teaching activities', 'Trade displays at conferences', 'Paid advertisements', 'Other']
+    key_dict = dict(zip(keys, alias))
+    make_heatmap(keys, aliases = key_dict)
+    st.markdown("""---""")
+
+elif selection == 'Home':
+    st.session_state.counter += 1
     _, col2, _ = st.columns([1, 8, 1])
     with col2:
         st.header('2022 Australasian Core Facility Member Survey Results')
@@ -717,3 +872,6 @@ elif selection == 'Home':
                   especially Ben Crossett (USyd) for Survey Coordination; Ralf Schittenhelm (Monash), Matt Padula (UTS), Tara Pukala (UoA), \
                  Nick Williamson (UniMelb), Paula Burton (Mass Dynamics), Mark Condina (Mass Dynamics) for design and testing; \
                  Naveed Nadiv (USyd) and Michael Leeming (Unimelb) data visualisation')
+
+
+
