@@ -608,7 +608,7 @@ elif selection == 'Staffing':
     st.header('Staffing')
 
     st.markdown('### Staff Gender Count')
-    make_staff_breakdown_chart('Staff Sex', ['fraction_female', 'fraction_male', 'fraction_non_binary'], ['pink', 'blue', 'green'])
+    make_staff_breakdown_chart('Staff Sex', ['fraction_female', 'fraction_male', 'fraction_non_binary'], ['green', 'orange', 'blue'])
     st.markdown("""---""")
 
     st.markdown('### Staff Role Count')
